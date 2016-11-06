@@ -41,7 +41,7 @@ public class PlayerInputProcessor implements InputProcessor {
 			player.moveLeft = true;
 			break;
 		case Keys.SPACE:
-			if (player.preSpin && player.onGround) {
+			if (player.preSpin && (player.onGround || player.loop && player.body.getLinearVelocity().y <= 0)) {
 				player.spinCharged = true;
 			} else {
 				player.spinJump = true;

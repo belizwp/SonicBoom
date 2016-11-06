@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 public class WorldContactListener implements ContactListener {
 
@@ -23,14 +22,14 @@ public class WorldContactListener implements ContactListener {
 		case SonicBoom.PLAYER_BIT | SonicBoom.GROUND_BIT:
 		case SonicBoom.PLAYER_BIT | SonicBoom.PLATFORM_BIT:
 			if (fixA.getFilterData().categoryBits == SonicBoom.PLAYER_BIT) {
-				((Player) fixA.getUserData()).onGround = true;
+				// ((Player) fixA.getUserData()).onGround = true;
 
 				if (((Object) fixB.getUserData()) instanceof GameObject) {
 					((GameObject) fixB.getUserData()).hit();
 				}
 
 			} else {
-				((Player) fixB.getUserData()).onGround = true;
+				// ((Player) fixB.getUserData()).onGround = true;
 
 				if (((Object) fixA.getUserData()) instanceof GameObject) {
 					((GameObject) fixA.getUserData()).hit();
@@ -95,6 +94,15 @@ public class WorldContactListener implements ContactListener {
 		int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
 		switch (cDef) {
+		case SonicBoom.PLAYER_BIT | SonicBoom.GROUND_BIT:
+		case SonicBoom.PLAYER_BIT | SonicBoom.PLATFORM_BIT:
+			if (fixA.getFilterData().categoryBits == SonicBoom.PLAYER_BIT) {
+				((Player) fixA.getUserData()).onGround = false;
+
+			} else {
+				((Player) fixB.getUserData()).onGround = false;
+			}
+			break;
 		case SonicBoom.PLAYER_BIT | SonicBoom.LOOP_R_BIT:
 			if (fixA.getFilterData().categoryBits == SonicBoom.PLAYER_BIT) {
 				((Player) fixA.getUserData()).onLoop = false;
@@ -122,64 +130,70 @@ public class WorldContactListener implements ContactListener {
 		int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
 		switch (cDef) {
+		case SonicBoom.PLAYER_BIT | SonicBoom.GROUND_BIT:
+			if (fixA.getFilterData().categoryBits == SonicBoom.PLAYER_BIT) {
+				((Player) fixA.getUserData()).onGround = true;
+				((Player) fixA.getUserData()).contactPoint = contact.getWorldManifold().getPoints()[0];
+
+			} else {
+				((Player) fixB.getUserData()).onGround = true;
+				((Player) fixB.getUserData()).contactPoint = contact.getWorldManifold().getPoints()[0];
+			}
+			break;
 		case SonicBoom.PLAYER_BIT | SonicBoom.PLATFORM_BIT:
 			Body playerBody = null;
-			Body platform = null;
 
 			if (fixA.getFilterData().categoryBits == SonicBoom.PLAYER_BIT) {
 				playerBody = fixA.getBody();
-				platform = fixB.getBody();
+
+				((Player) fixA.getUserData()).onGround = true;
+				((Player) fixA.getUserData()).contactPoint = contact.getWorldManifold().getPoints()[0];
+
+				Vector2 p1 = contact.getWorldManifold().getPoints()[0];
+				Vector2 p2 = playerBody.getWorldCenter();
+
+				float contactAngle = (float) (Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI) - 90;
+
+				if (contactAngle < -180) {
+					contactAngle += 360;
+				}
+
+				if (contactAngle >= 120 || contactAngle <= -120) {
+					contact.setEnabled(false);
+				} else if (p1.dst(p2) > 0.12f) {
+					return;
+				} else {
+					contact.setEnabled(false);
+				}
 
 			} else {
 				playerBody = fixB.getBody();
-				platform = fixA.getBody();
 
-			}
+				((Player) fixB.getUserData()).onGround = true;
+				((Player) fixB.getUserData()).contactPoint = contact.getWorldManifold().getPoints()[0];
 
-			int numPoints = contact.getWorldManifold().getNumberOfContactPoints();
-			WorldManifold worldManifold = contact.getWorldManifold();
+				Vector2 p1 = contact.getWorldManifold().getPoints()[0];
+				Vector2 p2 = playerBody.getWorldCenter();
 
-			// check if contact points are moving downward
-			for (int i = 0; i < numPoints; i++) {
-				Vector2 pointVel = playerBody.getLinearVelocityFromWorldPoint(worldManifold.getPoints()[i]);
+				float contactAngle = (float) (Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI) - 90;
 
-				if (pointVel.y < 0)
-					return;// point is moving down, leave contact solid and exit
-			}
+				if (contactAngle < -180) {
+					contactAngle += 360;
+				}
 
-			// check if contact points are moving into platform
-			for (int i = 0; i < numPoints; i++) {
-				Vector2 pointVelPlatform = platform.getLinearVelocityFromWorldPoint(worldManifold.getPoints()[i]);
-				Vector2 pointVelOther = playerBody.getLinearVelocityFromWorldPoint(worldManifold.getPoints()[i]);
-				Vector2 relativeVel = platform.getLocalVector(pointVelOther.sub(pointVelPlatform));
-
-				Vector2 relativePoint = platform.getLocalPoint(worldManifold.getPoints()[i]);
-
-				if (relativeVel.y < -1) // if moving down faster than 1 m/s,
-										// handle as before
-					return;// point is moving into platform, leave contact solid
-							// and exit
-				else if (relativeVel.y < 1) { // if moving slower than 1 m/s
-					// borderline case, moving only slightly out of platform
-					float platformFaceY = 0.5f;// front of platform, from
-												// fixture definition :(
-					float platformFaceX = 0.5f;
-
-					if (relativePoint.y > platformFaceY - 100 && relativePoint.x > platformFaceX - 100)
-						return;// contact point is less than 5cm inside front
-								// face of platfrom
+				if (contactAngle >= 120 || contactAngle <= -120) {
+					contact.setEnabled(false);
+				} else if (p1.dst(p2) > 0.12f) {
+					return;
 				} else {
-					;// moving up faster than 1 m/s
+					contact.setEnabled(false);
 				}
 
 			}
 
-			// no points are moving downward, contact should not be solid
-			contact.setEnabled(false);
 			break;
 		case SonicBoom.PLAYER_BIT | SonicBoom.LOOP_R_BIT:
 			if (fixA.getFilterData().categoryBits == SonicBoom.PLAYER_BIT) {
-
 				if (((Player) fixA.getUserData()).loop == false) {
 					contact.setEnabled(false);
 				} else {

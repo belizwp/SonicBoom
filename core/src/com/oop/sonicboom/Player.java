@@ -16,6 +16,7 @@ public abstract class Player extends Sprite implements Disposable {
 
 	protected float rotation;
 	protected Vector2 contactPoint;
+	protected float contactAngle;
 
 	protected enum State {
 		IDLE, WALKING, RUNNING, SPINNING, SPINCHARGE, JUMPPING, CROUCHING, HURTING, DYING

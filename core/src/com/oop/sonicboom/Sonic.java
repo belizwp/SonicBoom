@@ -143,12 +143,15 @@ public class Sonic extends Player {
 			}
 		}
 
+		// update contactAngle
+		Vector2 p1 = contactPoint;
+		Vector2 p2 = body.getWorldCenter();
+
+		contactAngle = (float) (Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI) - 90;
+
 		// update rotation while on loop
 		if (onLoop) {
-			Vector2 p1 = contactPoint;
-			Vector2 p2 = body.getWorldCenter();
-
-			rotation = (float) (Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI) - 90;
+			rotation = contactAngle;
 			setRotation(rotation);
 
 			deLoopTime = delta;
@@ -220,7 +223,7 @@ public class Sonic extends Player {
 			return State.DYING;
 		} else if (hurt) {
 			return State.HURTING;
-		} else if (spinJump) {
+		} else if (spinJump && !loop) {
 			return State.JUMPPING;
 		} else if (spinCharged) {
 			return State.SPINCHARGE;
@@ -271,6 +274,7 @@ public class Sonic extends Player {
 
 			faceRight = false;
 		}
+
 	}
 
 	// is speed down
@@ -285,9 +289,8 @@ public class Sonic extends Player {
 
 	@Override
 	public void jump() {
-		if (onGround) {
+		if (onGround && (contactAngle <= 45 && contactAngle >= -45)) {
 			body.applyForce(new Vector2(0, 13f), body.getWorldCenter(), true);
-			onGround = false;
 		}
 	}
 

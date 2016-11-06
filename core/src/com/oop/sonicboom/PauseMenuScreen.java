@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.BufferUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
@@ -75,7 +76,7 @@ public class PauseMenuScreen implements Screen {
 		try {
 			game.batch.setProjectionMatrix(camera.combined);
 			game.batch.begin();
-			game.batch.draw(bg, 0, 0, 800, 600, 0, 0, 800, 600, false, true);
+			game.batch.draw(bg, 0, 0, 800, 600);
 			game.batch.end();
 		} catch (Exception e) {
 			System.out.println("fail to draw pause bg");
@@ -117,7 +118,12 @@ public class PauseMenuScreen implements Screen {
 
 	public void generateBG() {
 		// load original pixmap
-		Pixmap pixmap = ScreenUtils.getFrameBufferPixmap(0, 0, 800, 600);
+		byte[] pixels = ScreenUtils.getFrameBufferPixels(0, 0, Gdx.graphics.getBackBufferWidth(),
+				Gdx.graphics.getBackBufferHeight(), true);
+
+		Pixmap pixmap = new Pixmap(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(),
+				Pixmap.Format.RGBA8888);
+		BufferUtils.copy(pixels, 0, pixmap.getPixels(), pixels.length);
 
 		// Blur the original pixmap with a radius of 4 px
 		// The blur is applied over 2 iterations for better quality
