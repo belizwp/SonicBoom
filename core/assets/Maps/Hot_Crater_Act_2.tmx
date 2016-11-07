@@ -8,7 +8,7 @@
    <image width="32" height="14" source="DashPanel.png"/>
   </tile>
   <tile id="1">
-   <image width="31" height="26" source="pike.png"/>
+   <image width="31" height="26" source="spike.png"/>
   </tile>
   <tile id="2">
    <image width="21" height="28" source="spring0.png"/>

@@ -149,46 +149,29 @@ public class WorldContactListener implements ContactListener {
 				((Player) fixA.getUserData()).onGround = true;
 				((Player) fixA.getUserData()).contactPoint = contact.getWorldManifold().getPoints()[0];
 
-				Vector2 p1 = contact.getWorldManifold().getPoints()[0];
-				Vector2 p2 = playerBody.getWorldCenter();
-
-				float contactAngle = (float) (Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI) - 90;
-
-				if (contactAngle < -180) {
-					contactAngle += 360;
-				}
-
-				if (contactAngle >= 120 || contactAngle <= -120) {
-					contact.setEnabled(false);
-				} else if (p1.dst(p2) > 0.12f) {
-					return;
-				} else {
-					contact.setEnabled(false);
-				}
-
 			} else {
 				playerBody = fixB.getBody();
 
 				((Player) fixB.getUserData()).onGround = true;
 				((Player) fixB.getUserData()).contactPoint = contact.getWorldManifold().getPoints()[0];
 
-				Vector2 p1 = contact.getWorldManifold().getPoints()[0];
-				Vector2 p2 = playerBody.getWorldCenter();
+			}
 
-				float contactAngle = (float) (Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI) - 90;
+			Vector2 p1 = contact.getWorldManifold().getPoints()[0];
+			Vector2 p2 = playerBody.getWorldCenter();
 
-				if (contactAngle < -180) {
-					contactAngle += 360;
-				}
+			float contactAngle = (float) (Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI) - 90;
 
-				if (contactAngle >= 120 || contactAngle <= -120) {
-					contact.setEnabled(false);
-				} else if (p1.dst(p2) > 0.12f) {
-					return;
-				} else {
-					contact.setEnabled(false);
-				}
+			if (contactAngle < -180) {
+				contactAngle += 360;
+			}
 
+			if (contactAngle >= 120 || contactAngle <= -120) {
+				contact.setEnabled(false);
+			} else if (p1.dst(p2) > 0.12f) {
+				return;
+			} else {
+				contact.setEnabled(false);
 			}
 
 			break;

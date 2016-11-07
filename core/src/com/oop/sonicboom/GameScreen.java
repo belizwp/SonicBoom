@@ -104,11 +104,9 @@ public class GameScreen implements Screen {
 
 		if (currentMap == 1) {
 			map = maploader.load("Maps/Neo_Green_Hill_1.tmx");
-		}
-		else if (currentMap == 2) {
+		} else if (currentMap == 2) {
 			map = maploader.load("Maps/Hot_Crater_Act_2.tmx");
-		}
-		else {
+		} else {
 			map = maploader.load("Maps/testMap.tmx");
 		}
 
@@ -140,8 +138,7 @@ public class GameScreen implements Screen {
 			bg = new Texture("Maps/bg.png");
 			bgCam = new OrthographicCamera(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
 			bgCam.position.set(SonicBoom.V_WIDTH / 2, SonicBoom.V_HEIGHT / 2, 0);
-		}
-		else if (currentMap == 2) {
+		} else if (currentMap == 2) {
 			bg = new Texture("Maps/bg_map2.png");
 			bgCam = new OrthographicCamera(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
 			bgCam.position.set(SonicBoom.V_WIDTH / 2, SonicBoom.V_HEIGHT / 2, 0);
@@ -251,7 +248,7 @@ public class GameScreen implements Screen {
 
 		// Test ring spawning for now
 		if (Gdx.input.isKeyPressed(Keys.C)) {
-			gameObjects.spawnRing(player.body.getWorldCenter().add(-8 / SonicBoom.PPM, 0.4f), 0, 3);
+			gameObjects.spawnRing(player.body.getWorldCenter().add(-8 / SonicBoom.PPM, 50 / SonicBoom.PPM), 0, 3);
 		}
 
 		// Test kill player
@@ -268,6 +265,11 @@ public class GameScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.NUM_1)) {
 			dispose();
 			currentMap = 1;
+			game.setScreen(new GameScreen(game));
+		}
+		if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
+			dispose();
+			currentMap = 2;
 			game.setScreen(new GameScreen(game));
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.NUM_0)) {

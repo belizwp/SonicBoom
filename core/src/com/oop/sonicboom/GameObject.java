@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -18,6 +19,7 @@ public abstract class GameObject {
 	protected MapObject object;
 
 	protected Body body;
+	protected Fixture fixture;
 
 	protected TextureMapObject textureObject;
 
@@ -63,7 +65,7 @@ public abstract class GameObject {
 		shape.setAsBox(width / 2, height / 2);
 		fdef.shape = shape;
 
-		body.createFixture(fdef);
+		fixture = body.createFixture(fdef);
 	}
 
 	private void applyTiledLocationToBody(Body body, float x, float y, float width, float height, float rotation) {

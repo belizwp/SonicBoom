@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="15" tilewidth="96" tileheight="96" nextobjectid="261">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="15" tilewidth="96" tileheight="96" nextobjectid="263">
  <tileset firstgid="1" name="Neo_Green_Hill_Act_1_Tile_Sheet" tilewidth="96" tileheight="96" tilecount="180" columns="20">
   <image source="Neo_Green_Hill_Act_1_Tile_Sheet.png" width="1920" height="864"/>
  </tileset>
@@ -23,9 +23,15 @@
    <image width="32" height="19" source="platform.gif"/>
   </tile>
  </tileset>
- <tileset firstgid="187" name="Enemy" tilewidth="32" tileheight="32" tilecount="1" columns="0">
+ <tileset firstgid="187" name="Enemy" tilewidth="96" tileheight="140" tilecount="3" columns="0">
   <tile id="0">
    <image width="32" height="32" source="sampleEnemy.png"/>
+  </tile>
+  <tile id="1">
+   <image width="90" height="140" source="../Sprites/enemyfly1.png"/>
+  </tile>
+  <tile id="2">
+   <image width="96" height="65" source="../Sprites/sheep1.png"/>
   </tile>
  </tileset>
  <layer name="background" width="60" height="15">
@@ -471,5 +477,7 @@
   <object id="257" name="sampleEnemy" gid="187" x="1191" y="468" width="53.3333" height="53.3333"/>
   <object id="258" name="sampleEnemy" gid="187" x="1273.33" y="476.667" width="88.6667" height="88.6667"/>
   <object id="259" name="sampleEnemy" gid="187" x="84.3333" y="566.667" width="32" height="32"/>
+  <object id="261" name="enemyFly" gid="188" x="360.5" y="580.5" width="90" height="140"/>
+  <object id="262" name="sheepEnemy" gid="189" x="497.5" y="568" width="96" height="65"/>
  </objectgroup>
 </map>

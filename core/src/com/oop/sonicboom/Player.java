@@ -4,7 +4,12 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Disposable;
 
 public abstract class Player extends Sprite implements Disposable {
@@ -13,6 +18,8 @@ public abstract class Player extends Sprite implements Disposable {
 
 	protected Body body;
 	protected Fixture fixture;
+
+	protected Body wrapperBody;
 
 	protected float rotation;
 	protected Vector2 contactPoint;
@@ -47,14 +54,7 @@ public abstract class Player extends Sprite implements Disposable {
 	public Player(GameScreen game) {
 		this.game = game;
 
-		try {
-			// find body for player
-			body = game.parser.getBodies().get("player");
-			fixture = game.parser.getFixtures().get("player");
-			fixture.setUserData(this);
-		} catch (Exception e) {
-			System.out.println("load Player failed.");
-		}
+		createPlayer();
 
 		// create PlayerInputProcessor
 		playerInputProcessor = new PlayerInputProcessor(this);
@@ -64,6 +64,53 @@ public abstract class Player extends Sprite implements Disposable {
 
 	public void switchLoop() {
 		loop = loop ? false : true;
+	}
+
+	private void createPlayer() {
+		// load position from map
+		Vector2 position = game.parser.getBodies().get("player").getWorldCenter();
+		game.getWorld().destroyBody(game.parser.getBodies().get("player"));
+
+		// ************************ MAIN BODY ************************ //
+		BodyDef bdef = new BodyDef();
+		FixtureDef fdef = new FixtureDef();
+
+		bdef.type = BodyType.DynamicBody;
+		bdef.position.set(position);
+		bdef.angularDamping = 90;
+
+		body = game.getWorld().createBody(bdef);
+
+		CircleShape shape = new CircleShape();
+		shape.setRadius(13 / SonicBoom.PPM);
+		fdef.shape = shape;
+		fdef.density = 1;
+
+		fdef.filter.categoryBits = SonicBoom.PLAYER_BIT;
+		fdef.filter.maskBits = SonicBoom.GROUND_BIT | SonicBoom.PLATFORM_BIT | SonicBoom.LOOP_SWITCH_BIT
+				| SonicBoom.LOOP_R_BIT | SonicBoom.LOOP_R_SENSOR_BIT | SonicBoom.LOOP_L_BIT
+				| SonicBoom.LOOP_L_SENSOR_BIT | SonicBoom.OBJECT_BIT;
+
+		fixture = body.createFixture(fdef);
+		fixture.setUserData(this);
+
+		// ************************ WRAPPER BODY ************************ //
+		bdef.type = BodyType.DynamicBody;
+		bdef.position.set(position);
+		bdef.angularDamping = 0;
+
+		wrapperBody = game.getWorld().createBody(bdef);
+
+		PolygonShape wShape = new PolygonShape();
+		wShape.setAsBox(26 / 2 / SonicBoom.PPM, 45 / 2 / SonicBoom.PPM, new Vector2(0, 45 / 2 / SonicBoom.PPM), 0);
+		fdef.shape = wShape;
+		fdef.density = 0;
+		fdef.isSensor = true;
+
+		fdef.filter.categoryBits = SonicBoom.PLAYER_BIT;
+		fdef.filter.maskBits = SonicBoom.ENEMY_BIT | SonicBoom.RING_BIT;
+
+		wrapperBody.createFixture(fdef).setUserData(this);
 	}
 
 	abstract public State getState();

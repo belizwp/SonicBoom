@@ -116,7 +116,8 @@ public class Sonic extends Player {
 
 		// update ring losing
 		if (loseRing && tempRing > 0) {
-			game.gameObjects.spawnRing(body.getWorldCenter().add(-8 / SonicBoom.PPM, 0.4f), r.nextInt(5) - 2, 3);
+			game.gameObjects.spawnRing(body.getWorldCenter().add(-8 / SonicBoom.PPM, 70 / SonicBoom.PPM),
+					r.nextInt(5) - 2, 3);
 			tempRing--;
 
 			if (tempRing <= 0) {
@@ -149,7 +150,7 @@ public class Sonic extends Player {
 
 		contactAngle = (float) (Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI) - 90;
 
-		// update rotation while on loop
+		// update rotation
 		if (onLoop) {
 			rotation = contactAngle;
 			setRotation(rotation);
@@ -157,16 +158,17 @@ public class Sonic extends Player {
 			deLoopTime = delta;
 		} else if (!onLoop && deLoopTime > 0) {
 			deLoopTime -= delta;
-		} else {
-			if (rotation > 0) {
-				rotation = rotation < 9.81f ? 0 : rotation - 9.81f;
-			}
-			if (rotation < 0) {
-				rotation = rotation > -9.81f ? 0 : rotation + 9.81f;
-			}
-
-			setRotation(rotation);
 		}
+		if (rotation > 0) {
+			rotation = rotation < 9.81f ? 0 : rotation - 9.81f;
+		}
+		if (rotation < 0) {
+			rotation = rotation > -9.81f ? 0 : rotation + 9.81f;
+		}
+		setRotation(rotation);
+
+		// update wrapper body
+		wrapperBody.setTransform(body.getWorldCenter(), (float) Math.toRadians(rotation));
 
 	}
 
@@ -289,7 +291,7 @@ public class Sonic extends Player {
 
 	@Override
 	public void jump() {
-		if (onGround && (contactAngle <= 45 && contactAngle >= -45)) {
+		if (onGround && (contactAngle <= 60 && contactAngle >= -60)) {
 			body.applyForce(new Vector2(0, 13f), body.getWorldCenter(), true);
 		}
 	}

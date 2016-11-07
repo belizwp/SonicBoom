@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class SonicBoom extends Game {
 
 	// Virtual size for game
-	public static final int V_WIDTH = 288;
-	public static final int V_HEIGHT = 216;
+	public static final int V_WIDTH = 400;
+	public static final int V_HEIGHT = 300;
 
 	// Pixel per Meter
 	public static final float PPM = 100;
