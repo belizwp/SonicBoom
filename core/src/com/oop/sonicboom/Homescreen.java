@@ -1,6 +1,5 @@
 package com.oop.sonicboom;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -15,13 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class MenuScreen implements Screen {
+public class Homescreen implements Screen {
 
 	private OrthographicCamera cam;
 	private Stage stage;
@@ -34,10 +32,11 @@ public class MenuScreen implements Screen {
 	private TextButtonStyle textButtonStyle;
 	private TextButton button_tul;
 	private TextButton screenbut;
+	private TextButton screenbut2;
 	private Viewport viewport;
 	private Texture img;
 
-	public MenuScreen(final SonicBoom game) {
+	public Homescreen(final SonicBoom game) {
 		this.game = game;
 
 		viewport = new FitViewport(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT, new OrthographicCamera());
@@ -45,68 +44,82 @@ public class MenuScreen implements Screen {
 
 		cam = new OrthographicCamera();
 
-		cam.setToOrtho(false, 510, 510);
+		cam.setToOrtho(false, 900, 671);
 
-		img = new Texture("tutorial.jpg");
+		img = new Texture("home screen.png");// choose img
 
-		stage = new Stage(new StretchViewport(1920, 1024));
+		stage = new Stage(new StretchViewport(1920, 1024));// 1920, 1024
 		Gdx.input.setInputProcessor(stage);
 		font = new BitmapFont();
 
 		skin = new Skin();
-		buttonAtlas = new TextureAtlas(Gdx.files.internal("tutorials/button.pack"));
+		buttonAtlas = new TextureAtlas(Gdx.files.internal("homescreen/homebut.pack"));// choose
+																						// img
 		skin.addRegions(buttonAtlas);
 
 		textButtonStyle = new TextButtonStyle();
 		textButtonStyle.font = font;
-		textButtonStyle.up = skin.getDrawable("arrow key");
-		textButtonStyle.down = skin.getDrawable("arrow key");
-		textButtonStyle.checked = skin.getDrawable("arrow key");
-		screenbut = new TextButton("", textButtonStyle);
-		stage.addActor(screenbut);
-		screenbut.setWidth(300);
-		screenbut.setHeight(300);
-		screenbut.setPosition(400, 550);// arrow keys
+		textButtonStyle.up = skin.getDrawable("pic1");
+		textButtonStyle.down = skin.getDrawable("pic2");
+		textButtonStyle.checked = skin.getDrawable("pic2");
+		screenbut2 = new TextButton("", textButtonStyle);
+		stage.addActor(screenbut2);
+		screenbut2.setPosition(300, 500);
+		screenbut2.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				game.setScreen(new GameScreen((SonicBoom) game));
+			}
+		});
 
 		textButtonStyle = new TextButtonStyle();
 		textButtonStyle.font = font;
-		textButtonStyle.up = skin.getDrawable("newspace");
-		textButtonStyle.down = skin.getDrawable("newspace");
-		textButtonStyle.checked = skin.getDrawable("newspace");
+		textButtonStyle.up = skin.getDrawable("pic1");
+		textButtonStyle.down = skin.getDrawable("pic2");
+		textButtonStyle.checked = skin.getDrawable("pic2");
 		screenbut = new TextButton("", textButtonStyle);
 		stage.addActor(screenbut);
-
-		screenbut.setPosition(230, 400);// spacebar
-
-		Label forestLabel = new Label("MOVE ANIMATION", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		forestLabel.setFontScale((float) 4.0);
-		forestLabel.setPosition(1000, 630);
-		stage.addActor(forestLabel);
-
-		Label forestLabel2 = new Label("JUMP ANIMATION", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		forestLabel2.setFontScale((float) 4.0);
-		forestLabel2.setPosition(1000, 435);
-		stage.addActor(forestLabel2);
-
-		textButtonStyle = new TextButtonStyle();
+		screenbut.setPosition(300, 300);
+		screenbut.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				game.setScreen(new MenuScreen(game));
+			}
+		});
 
 		textButtonStyle = new TextButtonStyle();
 		textButtonStyle.font = font;
-		textButtonStyle.up = skin.getDrawable("home pic");
-		textButtonStyle.down = skin.getDrawable("home");
-		textButtonStyle.checked = skin.getDrawable("home");
+		textButtonStyle.up = skin.getDrawable("pic1");
+		textButtonStyle.down = skin.getDrawable("pic2");
+		textButtonStyle.checked = skin.getDrawable("pic2");
 		button_ex = new TextButton("", textButtonStyle);
 		stage.addActor(button_ex);
-		button_ex.setWidth(120);
-		button_ex.setHeight(120);
-		button_ex.setPosition(1750, 10);// home
+		button_ex.setPosition(300, 100);
 		button_ex.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
-				game.setScreen(new Homescreen(game));
+				Gdx.app.exit();
 			}
 		});
+
+		Label forestLabel = new Label("START", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		forestLabel.setFontScale((float) 4.0);
+		forestLabel.setPosition(420, 580);
+		stage.addActor(forestLabel);
+
+		Label forestLabel1 = new Label("TUTORAIL", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		forestLabel1.setFontScale((float) 4.0);
+		forestLabel1.setPosition(380, 380);
+		stage.addActor(forestLabel1);
+
+		Label forestLabel2 = new Label("EXIT", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		forestLabel2.setFontScale((float) 4.0);
+		forestLabel2.setPosition(440, 180);
+		stage.addActor(forestLabel2);
+
 		//
 		// // skin.addRegions(buttonAtlas);
 		// textButtonStyle = new TextButtonStyle();

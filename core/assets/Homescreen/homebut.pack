@@ -1,0 +1,19 @@
+
+homebut.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+pic1
+  rotate: false
+  xy: 1, 1
+  size: 407, 179
+  orig: 407, 179
+  offset: 0, 0
+  index: -1
+pic2
+  rotate: false
+  xy: 410, 5
+  size: 405, 175
+  orig: 405, 175
+  offset: 0, 0
+  index: -1
