@@ -18,6 +18,8 @@ import com.badlogic.gdx.utils.Disposable;
 
 public class GameObjects implements Disposable {
 
+	private final float TERMINATE_TIME = 3;
+
 	private GameScreen game;
 	private Array<Ring> rings;
 	private Animation ringAnimation;
@@ -136,7 +138,7 @@ public class GameObjects implements Disposable {
 		for (Ring ring : spawnedRings) {
 			ring.update(delta);
 
-			if (ring.destroyed && ring.getDestroyedTime() > 2) {
+			if (ring.destroyed && ring.getDestroyedTime() > TERMINATE_TIME) {
 				spawnedRings.removeValue(ring, true);
 			}
 		}

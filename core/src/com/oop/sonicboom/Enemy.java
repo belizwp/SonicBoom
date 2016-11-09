@@ -35,6 +35,8 @@ public abstract class Enemy implements Disposable {
 	protected boolean toDestroy;
 	protected boolean destroyed;
 
+	protected float destroyedTime;
+
 	public Enemy(GameScreen game, MapObject object) {
 		this.game = game;
 		this.world = game.getWorld();
@@ -101,11 +103,13 @@ public abstract class Enemy implements Disposable {
 	}
 
 	public void draw(Batch batch) {
-		batch.draw(textureRegion, x, y, textureObject.getOriginX() / SonicBoom.PPM,
-				textureObject.getOriginY() / SonicBoom.PPM,
-				textureObject.getTextureRegion().getRegionWidth() / SonicBoom.PPM,
-				textureObject.getTextureRegion().getRegionHeight() / SonicBoom.PPM, textureObject.getScaleX(),
-				textureObject.getScaleY(), -textureObject.getRotation());
+		if (!destroyed) {
+			batch.draw(textureRegion, x, y, textureObject.getOriginX() / SonicBoom.PPM,
+					textureObject.getOriginY() / SonicBoom.PPM,
+					textureObject.getTextureRegion().getRegionWidth() / SonicBoom.PPM,
+					textureObject.getTextureRegion().getRegionHeight() / SonicBoom.PPM, textureObject.getScaleX(),
+					textureObject.getScaleY(), -textureObject.getRotation());
+		}
 
 	}
 
@@ -113,14 +117,35 @@ public abstract class Enemy implements Disposable {
 		this.textureRegion = textureRegion;
 	}
 
-	public void updatePosition() {
+	private void updatePosition() {
 		x = body.getPosition().x - width / 2;
 		y = body.getPosition().y - height / 2;
 	}
 
-	public abstract void customizeEnemy();
+	public void update(float delta) {
+		// destroy item
+		if (toDestroy && !destroyed) {
+			world.destroyBody(body);
+			destroyed = true;
+		}
 
-	public abstract void update(float delta);
+		// dead time
+		if (destroyed) {
+			destroyedTime += delta;
+		}
+
+		updatePosition();
+	}
+
+	public void destroy() {
+		toDestroy = true;
+	}
+
+	public float getDestroyedTime() {
+		return destroyedTime;
+	}
+
+	public abstract void customizeEnemy();
 
 	public abstract void hit();
 

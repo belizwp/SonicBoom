@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class Homescreen implements Screen {
+public class HomeScreen implements Screen {
 
 	private OrthographicCamera cam;
 	private Stage stage;
@@ -27,16 +27,14 @@ public class Homescreen implements Screen {
 	private SonicBoom game;
 	private TextureAtlas buttonAtlas;
 	private BitmapFont font;
-	private TextButton button;
 	private TextButton button_ex;
 	private TextButtonStyle textButtonStyle;
-	private TextButton button_tul;
 	private TextButton screenbut;
 	private TextButton screenbut2;
 	private Viewport viewport;
 	private Texture img;
 
-	public Homescreen(final SonicBoom game) {
+	public HomeScreen(final SonicBoom game) {
 		this.game = game;
 
 		viewport = new FitViewport(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT, new OrthographicCamera());
@@ -53,8 +51,7 @@ public class Homescreen implements Screen {
 		font = new BitmapFont();
 
 		skin = new Skin();
-		buttonAtlas = new TextureAtlas(Gdx.files.internal("homescreen/homebut.pack"));// choose
-																						// img
+		buttonAtlas = new TextureAtlas("Homescreen/homebut.pack");// choose img
 		skin.addRegions(buttonAtlas);
 
 		textButtonStyle = new TextButtonStyle();
@@ -85,7 +82,7 @@ public class Homescreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
-				game.setScreen(new MenuScreen(game));
+				game.setScreen(new TutorialScreen(game));
 			}
 		});
 
@@ -119,50 +116,6 @@ public class Homescreen implements Screen {
 		forestLabel2.setFontScale((float) 4.0);
 		forestLabel2.setPosition(440, 180);
 		stage.addActor(forestLabel2);
-
-		//
-		// // skin.addRegions(buttonAtlas);
-		// textButtonStyle = new TextButtonStyle();
-		// textButtonStyle.font = font;
-		// textButtonStyle.up = skin.getDrawable("Button1");
-		// textButtonStyle.down = skin.getDrawable("Button2");
-		// textButtonStyle.checked = skin.getDrawable("Button3");
-		// button_tul = new TextButton("", textButtonStyle);
-		// stage.addActor(button_tul);
-		// button_tul.setPosition(700, 425);
-		// button_tul.addListener(new ClickListener() {
-		// @Override
-		// public void clicked(InputEvent event, float x, float y) {
-		// super.clicked(event, x, y);
-		// Gdx.app.exit();
-		// }
-		// });
-		//
-		//
-		// Label menuLabel = new Label("MENU", new Label.LabelStyle(new
-		// BitmapFont(), Color.YELLOW));
-		// menuLabel.setFontScale((float)3.5);
-		// menuLabel.setPosition(825, 935);
-		// stage.addActor(menuLabel);
-		//
-		// Label startLabel = new Label("START", new Label.LabelStyle(new
-		// BitmapFont(), Color.WHITE));
-		// startLabel.setFontScale((float)3);
-		// startLabel.setPosition(840, 750);
-		// stage.addActor(startLabel);
-		//
-		// Label tulLabel = new Label("TUTORIAL", new Label.LabelStyle(new
-		// BitmapFont(), Color.WHITE));
-		// tulLabel.setFontScale((float)3);
-		// tulLabel.setPosition(805, 530);
-		// stage.addActor(tulLabel);
-		//
-		// Label exitLabel = new Label("EXIT", new Label.LabelStyle(new
-		// BitmapFont(), Color.WHITE));
-		// exitLabel.setFontScale((float)3);
-		//
-		// exitLabel.setPosition(860, 320);
-		// stage.addActor(exitLabel);
 
 	}
 

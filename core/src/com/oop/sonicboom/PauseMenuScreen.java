@@ -57,7 +57,7 @@ public class PauseMenuScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
-				game.game.setScreen(new MenuScreen(game.game));
+				game.game.setScreen(new HomeScreen(game.game));
 			}
 		});
 

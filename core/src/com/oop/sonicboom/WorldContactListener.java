@@ -22,15 +22,11 @@ public class WorldContactListener implements ContactListener {
 		case SonicBoom.PLAYER_BIT | SonicBoom.GROUND_BIT:
 		case SonicBoom.PLAYER_BIT | SonicBoom.PLATFORM_BIT:
 			if (fixA.getFilterData().categoryBits == SonicBoom.PLAYER_BIT) {
-				// ((Player) fixA.getUserData()).onGround = true;
-
 				if (((Object) fixB.getUserData()) instanceof GameObject) {
 					((GameObject) fixB.getUserData()).hit();
 				}
 
 			} else {
-				// ((Player) fixB.getUserData()).onGround = true;
-
 				if (((Object) fixA.getUserData()) instanceof GameObject) {
 					((GameObject) fixA.getUserData()).hit();
 				}
@@ -146,11 +142,22 @@ public class WorldContactListener implements ContactListener {
 			if (fixA.getFilterData().categoryBits == SonicBoom.PLAYER_BIT) {
 				playerBody = fixA.getBody();
 
-				((Player) fixA.getUserData()).onGround = true;
+				Player player = ((Player) fixA.getUserData());
+
+				if (!player.spinJump || !player.spinning) {
+					player.onGround = true;
+				}
+
 				((Player) fixA.getUserData()).contactPoint = contact.getWorldManifold().getPoints()[0];
 
 			} else {
 				playerBody = fixB.getBody();
+
+				Player player = ((Player) fixB.getUserData());
+
+				if (!player.spinJump || !player.spinning) {
+					player.onGround = true;
+				}
 
 				((Player) fixB.getUserData()).onGround = true;
 				((Player) fixB.getUserData()).contactPoint = contact.getWorldManifold().getPoints()[0];

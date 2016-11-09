@@ -26,7 +26,7 @@ public abstract class Player extends Sprite implements Disposable {
 	protected float contactAngle;
 
 	protected enum State {
-		IDLE, WALKING, RUNNING, SPINNING, SPINCHARGE, JUMPPING, CROUCHING, HURTING, DYING
+		IDLE, WALKING, RUNNING, SPINNING, SPINCHARGE, SPINJUMP, CROUCHING, HURTING, DYING
 	};
 
 	// player game state
@@ -48,6 +48,7 @@ public abstract class Player extends Sprite implements Disposable {
 	protected boolean spinning;
 	protected boolean spinJump;
 	protected boolean crouch;
+	protected boolean falling;
 
 	private PlayerInputProcessor playerInputProcessor;
 
@@ -117,7 +118,7 @@ public abstract class Player extends Sprite implements Disposable {
 
 	abstract public void update(float delta);
 
-	abstract public void jump();
+	abstract public void spinJump();
 
 	abstract public void dash();
 

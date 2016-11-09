@@ -7,6 +7,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
 public class Enemies implements Disposable {
+	
+	private final float TERMINATE_TIME = 2;
 
 	private GameScreen game;
 
@@ -42,7 +44,7 @@ public class Enemies implements Disposable {
 		for (Enemy enemy : enemies) {
 			enemy.update(delta);
 
-			if (enemy.destroyed) {
+			if (enemy.destroyed && enemy.getDestroyedTime() > TERMINATE_TIME) {
 				enemies.removeValue(enemy, true);
 			}
 		}

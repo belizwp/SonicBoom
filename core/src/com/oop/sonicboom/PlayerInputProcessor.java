@@ -44,8 +44,7 @@ public class PlayerInputProcessor implements InputProcessor {
 			if (player.preSpin && (player.onGround || player.loop && player.body.getLinearVelocity().y <= 0)) {
 				player.spinCharged = true;
 			} else {
-				player.spinJump = true;
-				player.jump();
+				player.spinJump();
 			}
 			break;
 		}

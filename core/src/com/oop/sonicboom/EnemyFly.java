@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class EnemyFly extends Enemy {
 
-	private static Texture sprite, sprite1, sprite2, sprite3, sprite4;
+	private static Texture sprite, sprite1, sprite2;
 	private static Animation animation;
 	private float stateTime;
 
@@ -29,15 +29,11 @@ public class EnemyFly extends Enemy {
 		sprite = new Texture("Sprites/enemyfly1.png");
 		sprite1 = new Texture("Sprites/enemyfly2.png");
 		sprite2 = new Texture("Sprites/enemyfly3.png");
-		//sprite3 = new Texture("Sprites/enemyfly4.png");
-		//sprite4 = new Texture("Sprites/enemyfly5.png");
 
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		frames.add(new TextureRegion(sprite, 0, 0, 90, 140));
 		frames.add(new TextureRegion(sprite1, 0, 0, 90, 140));
 		frames.add(new TextureRegion(sprite2, 0, 0, 90, 140));
-		//frames.add(new TextureRegion(sprite3, 0, 0, 90, 140));
-		//frames.add(new TextureRegion(sprite4, 0, 0, 90, 140));
 
 		animation = new Animation(0.2f, frames);
 		frames.clear();
@@ -76,15 +72,14 @@ public class EnemyFly extends Enemy {
 
 	@Override
 	public void update(float delta) {
+		super.update(delta);
+
 		// set current picture of animation
 		setRegion(animation.getKeyFrame(stateTime, true));
 		stateTime += delta;
 
 		// flip picture
 		flip();
-
-		// update position
-		updatePosition();
 
 		// make it moving around
 		moveAround(delta);
@@ -99,5 +94,7 @@ public class EnemyFly extends Enemy {
 	@Override
 	public void dispose() {
 		sprite.dispose();
+		sprite1.dispose();
+		sprite2.dispose();
 	}
 }

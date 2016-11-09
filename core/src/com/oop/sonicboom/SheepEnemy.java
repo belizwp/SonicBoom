@@ -71,20 +71,19 @@ public class SheepEnemy extends Enemy {
 	@Override
 	public void customizeEnemy() {
 		body.setType(BodyType.KinematicBody);
-		fixture.setSensor(true);
+		fixture.setSensor(false);
 	}
 
 	@Override
 	public void update(float delta) {
+		super.update(delta);
+		
 		// set current picture of animation
 		setRegion(animation.getKeyFrame(stateTime, true));
 		stateTime += delta;
 
 		// flip picture
 		flip();
-
-		// update position
-		updatePosition();
 
 		// make it moving around
 		moveAround(delta);

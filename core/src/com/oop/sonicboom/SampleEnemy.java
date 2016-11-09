@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 
@@ -69,15 +70,14 @@ public class SampleEnemy extends Enemy {
 
 	@Override
 	public void update(float delta) {
+		super.update(delta);
+
 		// set current picture of animation
 		setRegion(animation.getKeyFrame(stateTime, true));
 		stateTime += delta;
 
 		// flip picture
 		flip();
-
-		// update position
-		updatePosition();
 
 		// make it moving around
 		moveAround(delta);
@@ -86,7 +86,21 @@ public class SampleEnemy extends Enemy {
 	@Override
 	public void hit() {
 		// do some thing
+		if (game.player.spinning || game.player.spinJump) {
+			destroy();
+		} else {
+			pushBack(game.player, 0.125f, 0.2f);
+			game.player.hurt(1);
+			game.player.loseRing(GameScorer.clearScore());
+		}
 
+	}
+
+	private void pushBack(Player player, float vx, float vy) {
+		Vector2 velocity = player.body.getLinearVelocity();
+		Vector2 forceBack = new Vector2(velocity.x <= 0 ? vx : -vx, vy);
+		player.body.setLinearVelocity(0, 0);
+		player.body.applyLinearImpulse(forceBack, player.body.getWorldCenter(), true);
 	}
 
 	@Override
