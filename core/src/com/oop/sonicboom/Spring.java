@@ -12,7 +12,7 @@ public class Spring extends GameObject {
 	public Spring(GameScreen game, MapObject object) {
 		super(game, object);
 
-		force = new Vector2(0.35f, 0).rotate(-rotation);
+		force = new Vector2(0.37f, 0).rotate(-rotation);
 	}
 
 	@Override

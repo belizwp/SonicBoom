@@ -22,7 +22,7 @@ public class EnemyFly extends Enemy {
 
 		defineAnimation();
 
-		limitDistance = 10;
+		limitDistance = 5;
 	}
 
 	private void defineAnimation() {
@@ -52,10 +52,10 @@ public class EnemyFly extends Enemy {
 		}
 
 		if (go) {
-			body.setLinearVelocity(0.6f, 0);
+			body.setLinearVelocity(0.7f, 0);
 			distance += delta;
 		} else {
-			body.setLinearVelocity(-0.6f, 0);
+			body.setLinearVelocity(-0.7f, 0);
 			distance -= delta;
 		}
 	}

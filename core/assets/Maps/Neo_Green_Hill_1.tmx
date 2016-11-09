@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="15" tilewidth="96" tileheight="96" nextobjectid="560">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="15" tilewidth="96" tileheight="96" nextobjectid="643">
  <tileset firstgid="1" name="Neo_Green_Hill_Act_1_Tile_Sheet" tilewidth="96" tileheight="96" tilecount="180" columns="20">
   <image source="Neo_Green_Hill_Act_1_Tile_Sheet.png" width="1920" height="864"/>
  </tileset>
@@ -47,7 +47,7 @@
 74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,80,26,26,26,26,26,26,26,86,103,104,105,93,115,158,153,109,157,117,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,52,0,0,0,95,96,97,0,0,0,0,0,0,0,98,99,0,0,0,0,46,46,0,0,0,0,0,0,0,0,100,101,26,102,52,0,0,0,0,0,46,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,80,26,26,26,26,26,26,26,26,26,26,81,121,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,106,46,0,107,108,26,109,110,70,96,92,0,90,85,112,113,114,0,0,0,0,0,0,0,46,46,0,73,0,0,115,116,116,117,83,0,0,90,91,92,0,0,0,0,0,0,0,87,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,80,26,26,26,26,26,26,26,26,26,26,26,81,121,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,0,0,115,116,117,0,0,115,30,102,100,101,26,26,123,0,0,46,97,0,0,0,0,0,0,0,94,0,0,0,0,0,0,0,124,125,126,127,128,129,130,0,0,0,0,90,97,92,0,0,0,0,0,0,0,0,0,0,0,87,0,0,87,0,0,87,0,0,87,0,0,
-74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,80,26,26,26,26,26,26,26,26,26,26,26,26,81,121,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,97,0,167,168,133,100,134,0,0,0,0,73,0,115,116,116,116,117,0,95,107,108,26,26,70,96,97,0,0,0,0,0,0,133,136,137,138,139,140,141,141,141,141,141,142,143,144,145,146,101,26,102,100,136,137,147,96,92,0,0,90,91,131,97,46,91,97,91,131,97,91,46,97,91,131,
+74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,80,26,26,26,26,26,26,26,26,26,26,26,26,81,121,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,97,0,167,168,133,100,134,0,0,0,0,73,0,115,116,116,116,117,0,95,107,108,26,26,70,96,97,0,0,0,87,0,0,133,136,137,138,139,140,141,141,141,141,141,142,143,144,145,146,101,26,102,100,136,137,147,96,92,0,0,90,91,131,97,46,91,97,91,131,97,91,46,97,91,131,
 74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,80,26,26,26,26,26,26,26,26,26,26,26,26,26,120,121,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,106,0,150,151,152,153,123,0,0,0,0,83,133,154,100,155,156,0,154,80,26,109,153,157,116,158,158,159,70,96,97,100,0,152,153,153,153,123,0,46,48,48,160,147,107,108,26,26,26,26,26,26,72,26,26,26,26,102,154,154,101,26,26,26,26,26,26,26,26,26,26,26,26,26,26,
 74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,80,26,26,26,26,26,26,26,26,26,26,26,26,26,26,120,162,163,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,90,111,106,164,165,166,156,137,96,92,0,167,168,0,169,116,116,116,117,0,170,170,117,0,0,0,47,0,0,0,115,116,116,117,0,0,47,0,0,0,73,72,0,0,72,26,26,108,26,26,26,26,26,26,72,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,
 74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,171,171,171,171,171,171,171,171,171,171,171,171,171,171,171,171,171,172,173,174,173,174,173,174,173,174,173,174,173,174,173,174,173,174,173,174,173,174,173,174,173,174,146,101,26,72,26,26,26,26,26,26,102,155,175,176,111,52,155,144,145,156,147,108,177,160,95,167,146,52,160,136,96,91,111,160,155,164,146,52,136,137,107,106,106,0,0,72,26,26,108,26,26,26,26,26,26,72,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26
@@ -85,7 +85,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,14,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,29,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,14,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,27,0,0,0,0,0,0,0,0,0,0,87,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,29,25,0,87,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,0,0,29,25,0,87,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,0,0,29,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,41,41,43,44,42,41,43,44,41,41,43,44,41,41,41,43,44,41,41,43,44,41,41,41,43,44,41,41,43,44,41,45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -368,13 +368,13 @@
    <properties>
     <property name="categoryBits" type="int" value="32"/>
    </properties>
-   <polyline points="0,0 97.3333,0"/>
+   <polyline points="2.375,-0.25 97.3333,0"/>
   </object>
-  <object id="204" name="ground" type="object" x="4799.33" y="671.333">
+  <object id="204" name="ground" type="object" x="4799.58" y="671.333">
    <properties>
     <property name="categoryBits" type="int" value="1"/>
    </properties>
-   <polyline points="0,0 0.333333,-44.3333 132,-44 152.333,-46 165.333,-50.6667 177,-59.3333 186.333,-71.3333 192.333,-92.3333 192,-139"/>
+   <polyline points="0,0 0.333333,-44.3333 132,-44 152.333,-46 165.333,-50.6667 177,-59.3333 186.333,-71.3333 192.333,-92.3333 193,-139.5"/>
   </object>
   <object id="205" name="ground" type="object" x="5182.67" y="500.667">
    <properties>
@@ -1866,6 +1866,168 @@
     <property name="isSensor" value="true"/>
    </properties>
   </object>
+  <object id="563" name="ring" type="object" x="7503" y="745.65" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="564" name="ring" type="object" x="7529.66" y="745.83" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="565" name="ring" type="object" x="7557" y="746.35" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="566" name="ring" type="object" x="7895" y="794.65" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="567" name="ring" type="object" x="7921.66" y="794.83" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="568" name="ring" type="object" x="7949" y="795.35" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="569" name="ring" type="object" x="8418.92" y="908.682" width="16" height="16" rotation="13.2144">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="570" name="ring" type="object" x="8444.79" y="915.094" width="16" height="16" rotation="13.2144">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="571" name="ring" type="object" x="8471.25" y="921.996" width="16" height="16" rotation="13.2144">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="574" name="ring" type="object" x="8422" y="1321.85" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="575" name="ring" type="object" x="8368" y="1321.15" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="576" name="ring" type="object" x="8394.66" y="1321.33" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="581" name="ring" type="object" x="10507.7" y="1322.83" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="582" name="ring" type="object" x="10535" y="1323.35" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="583" name="ring" type="object" x="10481" y="1322.65" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="584" name="ring" type="object" x="10595.7" y="1083.83" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="585" name="ring" type="object" x="10623" y="1084.35" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="586" name="ring" type="object" x="10569" y="1083.65" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="587" name="ring" type="object" x="10985.7" y="1202.83" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="588" name="ring" type="object" x="11013" y="1203.35" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="589" name="ring" type="object" x="10959" y="1202.65" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="590" name="ring" type="object" x="11085.7" y="1201.83" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="591" name="ring" type="object" x="11113" y="1202.35" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="592" name="ring" type="object" x="11059" y="1201.65" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="601" name="ring" type="object" x="8323.67" y="1087.02" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="602" name="ring" type="object" x="8269.67" y="1086.32" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="603" name="ring" type="object" x="8296.33" y="1086.5" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Loop">
   <object id="71" name="loopL" type="object" x="3160.71" y="478.792">
@@ -2155,14 +2317,14 @@
    </properties>
   </object>
   <object id="272" name="spring" gid="183" x="3947.27" y="779.142" width="21" height="28" rotation="-66.9609"/>
-  <object id="328" name="spring" gid="183" x="5097.5" y="535.333" width="21" height="28" rotation="-66.9609"/>
+  <object id="328" name="spring" gid="183" x="5088.88" y="538.708" width="19.3538" height="20.3724" rotation="-66.9609"/>
   <object id="401" name="spring" gid="183" x="7768.52" y="747.139" width="21" height="28" rotation="269.888"/>
   <object id="518" name="spring" gid="183" x="9093.2" y="881.234" width="16.5591" height="23.4969" rotation="296.963"/>
   <object id="519" name="spring" gid="183" x="10178.5" y="930.071" width="21" height="28" rotation="304.1"/>
-  <object id="520" name="spring" gid="183" x="10201.6" y="1154.04" width="25.6286" height="32.3739" rotation="604.267"/>
-  <object id="521" name="spring" gid="183" x="11425.4" y="850.484" width="16.6818" height="17.7694" rotation="298.06"/>
-  <object id="522" name="spring" gid="183" x="11619" y="753.753" width="14.0005" height="15.3186" rotation="292.418"/>
-  <object id="524" name="spring" gid="183" x="8253.73" y="1294.29" width="21" height="28" rotation="317.947"/>
+  <object id="520" name="spring" gid="183" x="10227.7" y="1154.85" width="16.04" height="18.8717" rotation="621.211"/>
+  <object id="521" name="spring" gid="183" x="11425.5" y="849.555" width="16.6818" height="17.7694" rotation="288.983"/>
+  <object id="522" name="spring" gid="183" x="11618" y="751.698" width="14.0005" height="15.3186" rotation="285.971"/>
+  <object id="524" name="spring" gid="183" x="8257.06" y="1288.64" width="21" height="28" rotation="657.474"/>
   <object id="526" name="spike" gid="182" x="3227.79" y="267.033" width="31" height="26" rotation="0.407484"/>
   <object id="527" name="spike" gid="182" x="5663.67" y="553.458" width="31" height="26" rotation="270.472"/>
   <object id="528" name="spike" gid="182" x="7871.71" y="554.625" width="31" height="26" rotation="270.472"/>
@@ -2176,21 +2338,75 @@
   <object id="545" name="spring" gid="183" x="5762.17" y="497.03" width="22.4189" height="28.6457" rotation="-417.684"/>
   <object id="547" name="spring" gid="183" x="11255.2" y="945.747" width="17.5361" height="22.3706" rotation="644.455"/>
   <object id="548" name="spike" gid="182" x="4097" y="721.5" width="31" height="26" rotation="0.407484"/>
-  <object id="559" name="dp" gid="181" x="7119.86" y="1324.36" width="32" height="14" rotation="359.566"/>
+  <object id="559" name="dp" gid="181" x="7199.83" y="1273.56" width="32" height="14" rotation="269.913"/>
+  <object id="560" name="spring" gid="183" x="5278.34" y="434.132" width="17.1846" height="17.9281" rotation="-89.9068"/>
+  <object id="561" name="spring" gid="1073742007" x="7769.27" y="1059.97" width="18.1722" height="18.4662" rotation="-88.8084"/>
+  <object id="562" name="spike" gid="182" x="7585.05" y="909.595" width="31" height="26" rotation="-270.418"/>
+  <object id="593" name="spike" gid="182" x="11232" y="1226.96" width="31" height="26" rotation="-89.4222"/>
+  <object id="594" name="spring" gid="183" x="11328.7" y="1203.67" width="21" height="28"/>
+  <object id="595" name="spring" gid="183" x="9215.33" y="1395.33" width="21" height="28"/>
+  <object id="596" name="dp" gid="181" x="9042" y="1108.33" width="32" height="14"/>
+  <object id="597" name="dp" gid="181" x="8081.5" y="844" width="32" height="14"/>
+  <object id="604" name="spring" gid="183" x="7681.09" y="537.372" width="12.7246" height="15.0162" rotation="299.247"/>
+  <object id="619" name="dp" gid="181" x="5812.67" y="1371.67" width="32" height="14"/>
+  <object id="621" name="dp" gid="181" x="8832.34" y="890.891" width="32" height="14" rotation="270.128"/>
+  <object id="625" name="dp" gid="181" x="2738" y="455" width="32" height="14"/>
+  <object id="626" name="dp" gid="181" x="7985.25" y="1352.24" width="32" height="14" rotation="14.6177"/>
  </objectgroup>
  <objectgroup name="Enemies">
-  <object id="274" name="sampleEnemy" gid="187" x="1512.51" y="301.722" width="58" height="56.6667" rotation="-0.200259"/>
-  <object id="275" name="sampleEnemy" gid="187" x="1508" y="368.167" width="58" height="56.6667" rotation="-0.200259"/>
-  <object id="325" name="sampleEnemy" gid="187" x="2564.33" y="300.667" width="58" height="56.6667" rotation="-0.200259"/>
-  <object id="326" name="sampleEnemy" gid="187" x="2727.33" y="367.333" width="58" height="56.6667" rotation="-0.200259"/>
-  <object id="327" name="sampleEnemy" gid="187" x="5493.67" y="551.667" width="58" height="56.6667" rotation="-0.200259"/>
-  <object id="536" name="sampleEnemy" gid="187" x="560.065" y="391.065" width="32" height="32" rotation="359.767"/>
+  <object id="274" name="sampleEnemy" gid="187" x="1436.31" y="298.582" width="39.0242" height="38.0377" rotation="0.146752"/>
+  <object id="325" name="sampleEnemy" gid="187" x="2502.33" y="298.167" width="43.9669" height="47.2157" rotation="-0.200259"/>
+  <object id="326" name="sampleEnemy" gid="187" x="2714.33" y="364.833" width="45.3633" height="43.5744" rotation="-0.200259"/>
+  <object id="327" name="sampleEnemy" gid="187" x="5436.67" y="551.667" width="58" height="56.6667" rotation="-0.200259"/>
+  <object id="536" name="sampleEnemy" gid="187" x="552.398" y="397.065" width="39.691" height="37.9688" rotation="359.767"/>
   <object id="537" name="enemyFly" gid="188" x="4894" y="1355" width="61" height="114"/>
   <object id="538" name="enemyFly" gid="188" x="6243" y="1356" width="68" height="115"/>
   <object id="549" name="enemyFly" gid="188" x="4894" y="1355" width="61" height="114"/>
-  <object id="550" name="sampleEnemy" gid="187" x="7709.33" y="550.667" width="35.9302" height="36.7437" rotation="-0.200259"/>
-  <object id="551" name="enemyFly" gid="188" x="7668.67" y="1061.5" width="46" height="71"/>
-  <object id="552" gid="188" x="8576" y="1157" width="44" height="73"/>
-  <object id="557" name="sampleEnemy" gid="187" x="8574.33" y="944.333" width="41" height="40"/>
+  <object id="550" name="sampleEnemy" gid="187" x="7696.33" y="549.667" width="43.9523" height="43.049" rotation="-0.200259"/>
+  <object id="551" name="enemyFly" gid="188" x="7552.17" y="1056" width="46" height="71"/>
+  <object id="552" name="enemyFly" gid="188" x="8405.33" y="1155" width="44" height="73"/>
+  <object id="557" name="sampleEnemy" gid="187" x="8496.33" y="943.333" width="47.6667" height="46"/>
+  <object id="573" name="sampleEnemy" gid="187" x="8466.67" y="1349.5" width="41" height="40"/>
+  <object id="577" name="sampleEnemy" gid="187" x="8929.33" y="1325.83" width="41" height="40"/>
+  <object id="578" name="sampleEnemy" gid="187" x="9218.5" y="1036.67" width="41" height="40"/>
+  <object id="579" name="enemyFly" gid="188" x="9768.33" y="1399.67" width="44" height="79.5"/>
+  <object id="580" name="sampleEnemy" gid="187" x="10616.8" y="1381.67" width="41" height="40"/>
+  <object id="599" name="sheepEnemy" gid="189" x="10929.8" y="1078.33" width="66" height="42.5"/>
+  <object id="610" name="ring" type="object" x="11447" y="1180.35" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="611" name="ring" type="object" x="11419.7" y="1179.83" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="612" name="ring" type="object" x="11393" y="1179.65" width="16" height="16" rotation="-0.315109">
+   <properties>
+    <property name="categoryBits" value="4"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="613" name="sampleEnemy" gid="187" x="12356.8" y="1101.33" width="41" height="40"/>
+  <object id="614" name="enemyFly" gid="188" x="12735" y="1142.67" width="56" height="95.3333"/>
+  <object id="627" name="sheepEnemy" gid="189" x="1328.5" y="359.75" width="45.5" height="31"/>
+  <object id="628" name="sampleEnemy" gid="187" x="1555.48" y="360.468" width="44.0353" height="42.3582" rotation="0.146752"/>
+  <object id="629" name="sheepEnemy" gid="189" x="2419.75" y="361" width="45.5" height="31"/>
+  <object id="630" name="sampleEnemy" gid="187" x="4397.5" y="712" width="39" height="39"/>
+  <object id="631" name="sheepEnemy" gid="189" x="5273.5" y="1371" width="76.5" height="53.5"/>
+  <object id="632" name="sheepEnemy" gid="189" x="6121.42" y="1369.92" width="76.5" height="53.5"/>
+  <object id="633" name="enemyFly" gid="188" x="7346" y="1271.83" width="46" height="71"/>
+  <object id="634" name="sampleEnemy" gid="187" x="8056.5" y="1269.5" width="41" height="40"/>
+  <object id="635" name="enemyFly" gid="188" x="10485.3" y="1079.58" width="44" height="79.5"/>
+  <object id="636" name="sampleEnemy" gid="187" x="10468.2" y="746" width="41" height="40"/>
+  <object id="637" name="enemyFly" gid="188" x="11261.3" y="1086.25" width="44" height="79.5"/>
+  <object id="638" name="sampleEnemy" gid="187" x="11073.5" y="1079.33" width="41" height="40"/>
+  <object id="639" name="sampleEnemy" gid="187" x="11946.2" y="1033.33" width="41" height="40"/>
+  <object id="640" name="sheepEnemy" gid="189" x="13066.3" y="1133.25" width="66" height="42.5"/>
+  <object id="641" name="enemyFly" gid="188" x="1842.33" y="440.667" width="59" height="90"/>
+  <object id="642" name="sampleEnemy" gid="187" x="7870.25" y="811" width="51.25" height="46.75"/>
  </objectgroup>
 </map>

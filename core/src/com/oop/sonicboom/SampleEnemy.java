@@ -45,10 +45,10 @@ public class SampleEnemy extends Enemy {
 		}
 
 		if (go) {
-			body.setLinearVelocity(0.2f, 0);
+			body.setLinearVelocity(0.4f, 0);
 			distance += delta;
 		} else {
-			body.setLinearVelocity(-0.2f, 0);
+			body.setLinearVelocity(-0.4f, 0);
 			distance -= delta;
 		}
 	}
