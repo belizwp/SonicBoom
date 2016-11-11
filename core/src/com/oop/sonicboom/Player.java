@@ -109,7 +109,7 @@ public abstract class Player extends Sprite implements Disposable {
 		fdef.isSensor = true;
 
 		fdef.filter.categoryBits = SonicBoom.PLAYER_BIT;
-		fdef.filter.maskBits = SonicBoom.ENEMY_BIT | SonicBoom.RING_BIT;
+		fdef.filter.maskBits = SonicBoom.ENEMY_BIT | SonicBoom.RING_BIT | SonicBoom.WARP_BIT;
 
 		wrapperBody.createFixture(fdef).setUserData(this);
 	}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="15" tilewidth="96" tileheight="96" nextobjectid="646">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="15" tilewidth="96" tileheight="96" nextobjectid="648">
  <tileset firstgid="1" name="Neo_Green_Hill_Act_1_Tile_Sheet" tilewidth="96" tileheight="96" tilecount="180" columns="20">
   <image source="Neo_Green_Hill_Act_1_Tile_Sheet.png" width="1920" height="864"/>
  </tileset>
@@ -96,7 +96,7 @@
    <properties>
     <property name="categoryBits" type="int" value="1"/>
    </properties>
-   <polyline points="0,0 3.0303,1436.36 14397,1436.36 14390.9,-3.0303 12.1212,0"/>
+   <polyline points="0,0 3.04488,1436.36 14466.3,1436.36 14460.1,-3.0303 12.1795,0"/>
   </object>
  </objectgroup>
  <objectgroup name="Ground">
@@ -2411,5 +2411,13 @@
   <object id="643" name="sheepEnemy" gid="189" x="938.25" y="412.5" width="45.5" height="31"/>
   <object id="644" name="sheepEnemy" gid="189" x="1971.25" y="482.5" width="45.5" height="31"/>
   <object id="645" name="sheepEnemy" gid="189" x="4012.37" y="844.575" width="45.5" height="31" rotation="-315.955"/>
+ </objectgroup>
+ <objectgroup name="Warp">
+  <object id="646" name="warp" type="object" x="14402" y="1052" width="62" height="162">
+   <properties>
+    <property name="categoryBits" value="2048"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

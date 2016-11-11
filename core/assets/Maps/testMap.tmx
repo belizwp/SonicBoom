@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="15" tilewidth="96" tileheight="96" nextobjectid="264">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="15" tilewidth="96" tileheight="96" nextobjectid="266">
  <tileset firstgid="1" name="Neo_Green_Hill_Act_1_Tile_Sheet" tilewidth="96" tileheight="96" tilecount="180" columns="20">
   <image source="Neo_Green_Hill_Act_1_Tile_Sheet.png" width="1920" height="864"/>
  </tileset>
@@ -55,12 +55,6 @@
   </object>
  </objectgroup>
  <objectgroup name="Ground">
-  <object id="3" name="ground" type="object" x="1.66667" y="650.333">
-   <properties>
-    <property name="categoryBits" value="1"/>
-   </properties>
-   <polyline points="-2,-2 52.6667,-2 116.333,-2 180.333,-18.6667 258.333,-46.6667 298.333,-48.6667 333.333,-41.3333 382,-25 397.667,-17 453.333,-0.333333 495.667,0 514.667,-3.33333 550.667,-20 563.333,-23 607,-25.3333 651.667,-26 683.333,-22.6667 694.667,-20 726,-4.33333 734.333,-1.33333 770.667,0 786.667,2 822,18.3333 836.667,22.6667 856.667,24.6667 905.667,22 930.333,21 974.667,24 1011.67,16.3333 1052.67,0.666667 1077.33,-8.33333 1109.67,-18.6667 1133,-24 1165,-24 1179.67,-21.6667 1245.75,-2 1277.5,-0.83333 1311.08,-1.00003 1345.91,-1 1377.67,-0.83337 1404.42,-0.83333 1432.33,-0.333333 1487.67,-0.333333 1498,-2 1507.33,-6.33333 1516.33,-12.6667 1521.67,-18.3333 1527.33,-27 1531,-37 1532.67,-45.6667 1536.33,-68"/>
-  </object>
   <object id="4" name="ground" type="object" x="1536" y="553.06" width="49.6667" height="119.273">
    <properties>
     <property name="categoryBits" value="1"/>
@@ -107,51 +101,10 @@
     <property name="categoryBits" value="1"/>
    </properties>
   </object>
-  <object id="260" name="testPlatform" type="object" x="127.5" y="481.5">
-   <properties>
-    <property name="categoryBits" value="32"/>
-   </properties>
-   <polyline points="0,0 171.5,140"/>
-  </object>
+  <object id="264" name="gg" type="object" x="-2" y="676" width="1536" height="96"/>
  </objectgroup>
  <objectgroup name="Platforms"/>
  <objectgroup name="Rings">
-  <object id="65" name="ring" type="object" x="646.333" y="589.167" width="16" height="16">
-   <properties>
-    <property name="categoryBits" value="4"/>
-    <property name="isSensor" value="true"/>
-   </properties>
-  </object>
-  <object id="66" name="ring" type="object" x="592.333" y="588.167" width="16" height="16">
-   <properties>
-    <property name="categoryBits" value="4"/>
-    <property name="isSensor" value="true"/>
-   </properties>
-  </object>
-  <object id="67" name="ring" type="object" x="619" y="588.5" width="16" height="16">
-   <properties>
-    <property name="categoryBits" value="4"/>
-    <property name="isSensor" value="true"/>
-   </properties>
-  </object>
-  <object id="68" name="ring" type="object" x="937.667" y="639.167" width="16" height="16">
-   <properties>
-    <property name="categoryBits" value="4"/>
-    <property name="isSensor" value="true"/>
-   </properties>
-  </object>
-  <object id="69" name="ring" type="object" x="883.667" y="638.167" width="16" height="16">
-   <properties>
-    <property name="categoryBits" value="4"/>
-    <property name="isSensor" value="true"/>
-   </properties>
-  </object>
-  <object id="70" name="ring" type="object" x="910.334" y="638.5" width="16" height="16">
-   <properties>
-    <property name="categoryBits" value="4"/>
-    <property name="isSensor" value="true"/>
-   </properties>
-  </object>
   <object id="71" name="ring" type="object" x="1373" y="619.833" width="16" height="16">
    <properties>
     <property name="categoryBits" value="4"/>
@@ -279,26 +232,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Player">
-  <object id="246" name="ring" type="object" x="285.667" y="567.166" width="16" height="16">
-   <properties>
-    <property name="categoryBits" value="4"/>
-    <property name="isSensor" value="true"/>
-   </properties>
-  </object>
-  <object id="247" name="ring" type="object" x="259" y="566.833" width="16" height="16">
-   <properties>
-    <property name="categoryBits" value="4"/>
-    <property name="isSensor" value="true"/>
-   </properties>
-  </object>
-  <object id="248" name="ring" type="object" x="313" y="567.833" width="16" height="16">
-   <properties>
-    <property name="categoryBits" value="4"/>
-    <property name="isSensor" value="true"/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup name="Player"/>
  <objectgroup name="Loop">
   <object id="106" name="loopR" type="object" x="5184.13" y="1324.25">
    <properties>
@@ -440,13 +374,10 @@
   </object>
  </objectgroup>
  <objectgroup name="GameObject">
-  <object id="167" name="spike" gid="181" x="494" y="649.5" width="31" height="26" rotation="-90"/>
   <object id="168" name="spike" gid="181" x="1887.67" y="458.833" width="31" height="26" rotation="-360"/>
-  <object id="170" name="dp" gid="182" x="903.917" y="671.667" width="32" height="14"/>
   <object id="173" name="dp" gid="182" x="4883" y="1323" width="32" height="14"/>
   <object id="174" name="dp" gid="182" x="3265.5" y="1372" width="32" height="14"/>
   <object id="175" name="dp" gid="182" x="4335.67" y="1371.33" width="32" height="14"/>
-  <object id="177" name="spring" gid="183" x="-0.237902" y="650.404" width="54.2079" height="144.009" rotation="-0.389565"/>
   <object id="198" name="platform" gid="186" x="3768.67" y="1323.25" width="32" height="19"/>
   <object id="199" name="platform" gid="186" x="3701.33" y="1321.75" width="32" height="19"/>
   <object id="200" name="platform" gid="186" x="3836" y="1324.58" width="32" height="19"/>
@@ -476,9 +407,13 @@
   <object id="256" name="sampleEnemy" gid="187" x="1111.67" y="459.667" width="32" height="32"/>
   <object id="257" name="sampleEnemy" gid="187" x="1191" y="468" width="53.3333" height="53.3333"/>
   <object id="258" name="sampleEnemy" gid="187" x="1273.33" y="476.667" width="88.6667" height="88.6667"/>
-  <object id="259" name="sampleEnemy" gid="187" x="84.3333" y="566.667" width="32" height="32"/>
-  <object id="261" name="enemyFly" gid="188" x="360.5" y="580.5" width="90" height="140"/>
-  <object id="262" name="sheepEnemy" gid="189" x="497.5" y="568" width="96" height="65"/>
   <object id="263" name="sheepEnemy" gid="189" x="1297" y="557.5" width="64" height="39.5"/>
+ </objectgroup>
+ <objectgroup name="Warp">
+  <object id="265" name="warp" type="object" x="470" y="578" width="108" height="94">
+   <properties>
+    <property name="categoryBits" value="2048"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

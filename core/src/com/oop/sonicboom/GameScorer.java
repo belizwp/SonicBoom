@@ -4,6 +4,8 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameScorer {
 
+	private static int currentMap = 1;
+
 	private static long startTime;
 	private static long startPauseTime;
 	private static long pauseTime;
@@ -63,6 +65,14 @@ public class GameScorer {
 			timeCount = TimeUtils.timeSinceMillis(startTime) - pauseTime;
 		}
 		return timeCount;
+	}
+
+	public static void setMap(int level) {
+		currentMap = level;
+	}
+
+	public static int getCurrentMap() {
+		return currentMap;
 	}
 
 }

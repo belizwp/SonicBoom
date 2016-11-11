@@ -10,6 +10,12 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 
 public class WorldContactListener implements ContactListener {
 
+	final GameScreen game;
+
+	public WorldContactListener(final GameScreen game) {
+		this.game = game;
+	}
+
 	@Override
 	public void beginContact(Contact contact) {
 		Fixture fixA = contact.getFixtureA();
@@ -73,6 +79,9 @@ public class WorldContactListener implements ContactListener {
 			} else {
 				((Enemy) fixA.getUserData()).hit();
 			}
+			break;
+		case SonicBoom.PLAYER_BIT | SonicBoom.WARP_BIT:
+			game.changeMap();
 			break;
 		}
 

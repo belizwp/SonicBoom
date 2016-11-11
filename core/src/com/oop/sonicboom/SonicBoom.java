@@ -7,7 +7,7 @@ public class SonicBoom extends Game {
 
 	// Virtual size for game
 	public static final int V_WIDTH = 600;
-	public static final int V_HEIGHT = 400;
+	public static final int V_HEIGHT = 450;
 
 	// Pixel per Meter
 	public static final float PPM = 100;
@@ -25,6 +25,7 @@ public class SonicBoom extends Game {
 	public static final short LOOP_R_SENSOR_BIT = 256;
 	public static final short LOOP_L_BIT = 512;
 	public static final short LOOP_L_SENSOR_BIT = 1024;
+	public static final short WARP_BIT = 2048;
 
 	// used by all screens
 	public SpriteBatch batch;

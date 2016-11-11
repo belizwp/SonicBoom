@@ -30,13 +30,16 @@ public class GameScreen implements Screen {
 	public static final int GAME_RUNNING = 1;
 	public static final int GAME_PAUSED = 2;
 	public static final int GAME_OVER = 4;
+	public static final int GAME_END_LEVEL = 5;
 
 	private static int state;
 
+	private final int MAX_MAP_NUMBER = 3;
+
+	private boolean setToChangeMap;
+
 	// screen that relate to GameScreen
 	PauseMenuScreen pauseMenu;
-
-	private static int currentMap;
 
 	// batch for draw
 	Batch batch;
@@ -102,11 +105,11 @@ public class GameScreen implements Screen {
 		// Load map and setup our map renderer
 		maploader = new TmxMapLoader();
 
-		if (currentMap == 1) {
+		if (GameScorer.getCurrentMap() == 1) {
 			map = maploader.load("Maps/Neo_Green_Hill_1.tmx");
-		} else if (currentMap == 2) {
+		} else if (GameScorer.getCurrentMap() == 2) {
 			map = maploader.load("Maps/Hot_Crater_Act_2.tmx");
-		} else if (currentMap == 3) {
+		} else if (GameScorer.getCurrentMap() == 3) {
 			map = maploader.load("Maps/final_map.tmx");
 		} else {
 			map = maploader.load("Maps/testMap.tmx");
@@ -125,7 +128,7 @@ public class GameScreen implements Screen {
 		// create Box2D world, setting no gravity in X, -10 gravity in Y, and
 		// allow bodies to sleep
 		world = new World(new Vector2(0, -9.81f), true);
-		worldContactListener = new WorldContactListener();
+		worldContactListener = new WorldContactListener(this);
 		world.setContactListener(worldContactListener);
 
 		// allows for debug lines of box2d world.
@@ -136,15 +139,15 @@ public class GameScreen implements Screen {
 		hud = new Hud();
 
 		// create background
-		if (currentMap == 1) {
+		if (GameScorer.getCurrentMap() == 1) {
 			bg = new Texture("Maps/bg_new.png");
 			bgCam = new OrthographicCamera(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
 			bgCam.position.set(SonicBoom.V_WIDTH / 2, SonicBoom.V_HEIGHT / 2, 0);
-		} else if (currentMap == 2) {
+		} else if (GameScorer.getCurrentMap() == 2) {
 			bg = new Texture("Maps/bg_map2.png");
 			bgCam = new OrthographicCamera(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
 			bgCam.position.set(SonicBoom.V_WIDTH / 2, SonicBoom.V_HEIGHT / 2, 0);
-		} else if (currentMap == 3) {
+		} else if (GameScorer.getCurrentMap() == 3) {
 			bg = new Texture("Maps/bg_sky.png");
 			bgCam = new OrthographicCamera(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
 			bgCam.position.set(SonicBoom.V_WIDTH / 2, SonicBoom.V_HEIGHT / 2, 0);
@@ -168,8 +171,9 @@ public class GameScreen implements Screen {
 		// create enemies
 		enemies = new Enemies(this);
 
-		// start game scorer
-		GameScorer.start();
+		if (GameScorer.getCurrentMap() == 1) {
+			GameScorer.start();
+		}
 
 		state = GAME_RUNNING;
 	}
@@ -185,6 +189,10 @@ public class GameScreen implements Screen {
 		update(delta);
 		draw(delta);
 		handleInput(delta);
+
+		if (setToChangeMap) {
+			changeMap(GameScorer.getCurrentMap() + 1);
+		}
 	}
 
 	@Override
@@ -269,24 +277,16 @@ public class GameScreen implements Screen {
 
 		// Test change map
 		if (Gdx.input.isKeyJustPressed(Keys.NUM_1)) {
-			dispose();
-			currentMap = 1;
-			game.setScreen(new GameScreen(game));
+			changeMap(1);
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
-			dispose();
-			currentMap = 2;
-			game.setScreen(new GameScreen(game));
+			changeMap(2);
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
-			dispose();
-			currentMap = 3;
-			game.setScreen(new GameScreen(game));
+			changeMap(3);
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.NUM_0)) {
-			dispose();
-			currentMap = 0;
-			game.setScreen(new GameScreen(game));
+			changeMap(0);
 		}
 	}
 
@@ -440,6 +440,22 @@ public class GameScreen implements Screen {
 
 	public static boolean isGameOver() {
 		return state == GAME_OVER;
+	}
+
+	private void changeMap(int level) {
+		if (level >= 1 && level <= MAX_MAP_NUMBER) {
+			dispose();
+			GameScorer.setMap(level);
+			game.setScreen(new GameScreen(game));
+		} else {
+			dispose();
+			GameScorer.setMap(0);
+			game.setScreen(new GameScreen(game));
+		}
+	}
+
+	public void changeMap() {
+		setToChangeMap = true;
 	}
 
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="15" tilewidth="96" tileheight="96" nextobjectid="879">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="15" tilewidth="96" tileheight="96" nextobjectid="880">
  <tileset firstgid="1" name="Hot_Crater_Act_2" tilewidth="96" tileheight="96" tilecount="280" columns="20">
   <image source="Hot_Crater_Act_2.png" width="1920" height="1344"/>
  </tileset>
@@ -209,7 +209,7 @@
    <properties>
     <property name="categoryBits" type="int" value="1"/>
    </properties>
-   <polyline points="0,0 4.9697,1438 14393,1440 14393,2 2.9697,0"/>
+   <polyline points="0,0 4.99272,1438 14459.7,1440 14459.7,2 2.98346,0"/>
   </object>
   <object id="154" name="ground" type="object" x="3110" y="721">
    <properties>
@@ -3847,5 +3847,13 @@
   <object id="876" name="enemyFly" gid="290" x="9196" y="771.25" width="44" height="79.5"/>
   <object id="877" name="enemyFly" gid="290" x="11454" y="678.25" width="44" height="79.5"/>
   <object id="878" name="sheepEnemy" gid="291" x="11047" y="673.75" width="66" height="42.5"/>
+ </objectgroup>
+ <objectgroup name="Warp">
+  <object id="879" name="warp" type="object" x="14399.7" y="599" width="62" height="162">
+   <properties>
+    <property name="categoryBits" value="2048"/>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

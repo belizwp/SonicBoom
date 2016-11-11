@@ -89,8 +89,13 @@ public abstract class Item extends Sprite {
 	}
 
 	public void draw(Batch batch) {
-		if (!destroyed)
-			super.draw(batch);
+		try {
+			if (!destroyed)
+				super.draw(batch);
+		} catch (Exception e) {
+			// no sprite to draw
+		}
+
 	}
 
 	public void destroy() {
@@ -113,7 +118,7 @@ public abstract class Item extends Sprite {
 			} else {
 				setAlpha(1);
 			}
-			
+
 			splashTime += delta;
 		}
 	}
