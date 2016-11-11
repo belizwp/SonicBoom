@@ -99,7 +99,7 @@ public class Sonic extends Player {
 		frames.clear();
 
 		// set area of sprite
-		setBounds(0,  0, 96 / SonicBoom.PPM, 96 / SonicBoom.PPM);
+		setBounds(0, 0, 96 / SonicBoom.PPM, 96 / SonicBoom.PPM);
 
 		// time before off player collision
 		deadTime = 0.5f;
@@ -227,7 +227,7 @@ public class Sonic extends Player {
 			return State.DYING;
 		} else if (hurt) {
 			return State.HURTING;
-		} else if (spinJump && !loop) {
+		} else if (spinJump) {
 			return State.SPINJUMP;
 		} else if (spinCharged) {
 			return State.SPINCHARGE;
@@ -252,6 +252,9 @@ public class Sonic extends Player {
 		if (onGround && falling) {
 			spinJump = false;
 			falling = false;
+		}
+		if (onLoop) {
+			spinJump = false;
 		}
 
 		Vector2 spd = body.getLinearVelocity();
@@ -297,7 +300,7 @@ public class Sonic extends Player {
 
 	@Override
 	public void spinJump() {
-		if (onGround && (contactAngle <= 60 && contactAngle >= -60)) {
+		if (onGround && (contactAngle <= 80 && contactAngle >= -80)) {
 			body.applyForce(new Vector2(0, 13f), body.getWorldCenter(), true);
 			spinJump = true;
 		}

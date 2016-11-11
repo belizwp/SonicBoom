@@ -3,19 +3,20 @@ package com.oop.sonicboom;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
 public class Enemies implements Disposable {
-	
-	private final float TERMINATE_TIME = 2;
 
 	private GameScreen game;
+	private World world;
 
 	private Array<Enemy> enemies;
 
 	public Enemies(GameScreen game) {
 		this.game = game;
+		this.world = game.getWorld();
 
 		createEnemies();
 	}
@@ -44,7 +45,8 @@ public class Enemies implements Disposable {
 		for (Enemy enemy : enemies) {
 			enemy.update(delta);
 
-			if (enemy.destroyed && enemy.getDestroyedTime() > TERMINATE_TIME) {
+			if (enemy.destroyed) {
+				world.destroyBody(enemy.body);
 				enemies.removeValue(enemy, true);
 			}
 		}

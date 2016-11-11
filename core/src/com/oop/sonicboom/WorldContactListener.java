@@ -159,7 +159,6 @@ public class WorldContactListener implements ContactListener {
 					player.onGround = true;
 				}
 
-				((Player) fixB.getUserData()).onGround = true;
 				((Player) fixB.getUserData()).contactPoint = contact.getWorldManifold().getPoints()[0];
 
 			}

@@ -35,8 +35,6 @@ public abstract class Enemy implements Disposable {
 	protected boolean toDestroy;
 	protected boolean destroyed;
 
-	protected float destroyedTime;
-
 	public Enemy(GameScreen game, MapObject object) {
 		this.game = game;
 		this.world = game.getWorld();
@@ -125,13 +123,7 @@ public abstract class Enemy implements Disposable {
 	public void update(float delta) {
 		// destroy item
 		if (toDestroy && !destroyed) {
-			world.destroyBody(body);
 			destroyed = true;
-		}
-
-		// dead time
-		if (destroyed) {
-			destroyedTime += delta;
 		}
 
 		updatePosition();
@@ -139,10 +131,6 @@ public abstract class Enemy implements Disposable {
 
 	public void destroy() {
 		toDestroy = true;
-	}
-
-	public float getDestroyedTime() {
-		return destroyedTime;
 	}
 
 	public abstract void customizeEnemy();
