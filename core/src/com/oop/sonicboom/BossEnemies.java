@@ -8,9 +8,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 
-public class SheepEnemy extends Enemy {
+public class BossEnemies extends Enemy {
 
-	private static Texture sprite1, sprite2, sprite3, sprite4, sprite5, sprite6;
+	private static Texture sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, 
+	sprite7, sprite8, sprite9, sprite10, sprite11, sprite12;
 	private static Animation animation;
 	private float stateTime;
 	
@@ -18,12 +19,12 @@ public class SheepEnemy extends Enemy {
 	private float limitDistance;
 	private boolean go, dead=true;
 
-	public SheepEnemy(GameScreen game, MapObject object) {
+	public BossEnemies(GameScreen game, MapObject object) {
 		super(game, object);
 
 		defineAnimation();
 
-		limitDistance = 4;
+		limitDistance = 8;
 	}
 
 	private void defineAnimation() {
@@ -33,7 +34,13 @@ public class SheepEnemy extends Enemy {
 		sprite4 = new Texture("Sprites/sheep4.png");
 		sprite5 = new Texture("Sprites/sheep5.png");
 		sprite6 = new Texture("Sprites/sheep6.png");
-
+		sprite7 = new Texture("Sprites/sheep12.png");
+		sprite8 = new Texture("Sprites/sheep11.png");
+		sprite9 = new Texture("Sprites/sheep7.png");
+		sprite10 = new Texture("Sprites/sheep8.png");
+		sprite11 = new Texture("Sprites/sheep9.png");
+		sprite12 = new Texture("Sprites/sheep10.png");
+		
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		if(dead){
 			frames.add(new TextureRegion(sprite1, 0, 0, 96, 65));
@@ -41,6 +48,12 @@ public class SheepEnemy extends Enemy {
 			frames.add(new TextureRegion(sprite3, 0, 0, 96, 65));
 			frames.add(new TextureRegion(sprite4, 0, 0, 96, 65));
 			frames.add(new TextureRegion(sprite5, 0, 0, 96, 65));
+			frames.add(new TextureRegion(sprite7, 0, 0, 96, 65));
+			frames.add(new TextureRegion(sprite8, 0, 0, 96, 65));
+			frames.add(new TextureRegion(sprite9, 0, 0, 96, 65));
+			frames.add(new TextureRegion(sprite10, 0, 0, 96, 65));
+			frames.add(new TextureRegion(sprite11, 0, 0, 96, 65));
+			frames.add(new TextureRegion(sprite12, 0, 0, 96, 65));
 		} else{
 			frames.add(new TextureRegion(sprite6, 0, 0, 96, 65));
 		}
@@ -58,10 +71,10 @@ public class SheepEnemy extends Enemy {
 		}
 
 		if (go) {
-			body.setLinearVelocity(0.9f, 0);
+			body.setLinearVelocity(0.8f, 0);
 			distance += delta;
 		} else {
-			body.setLinearVelocity(-0.9f, 0);
+			body.setLinearVelocity(-0.8f, 0);
 			distance -= delta;
 		}
 	}
@@ -98,10 +111,14 @@ public class SheepEnemy extends Enemy {
 	@Override
 	public void hit() {
 		// do some thing
+		int count = 5;
 		if (game.player.spinning || game.player.spinJump) {
 			dead = false;
-			destroy();
-			
+			if(count == 0){
+				destroy();
+			}else{
+				count--;
+			}
 		}
 	}
 
@@ -114,6 +131,6 @@ public class SheepEnemy extends Enemy {
 	
 	@Override
 	public void dispose() {
-		sprite1.dispose();
+		sprite7.dispose();
 	}
 }

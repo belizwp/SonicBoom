@@ -99,7 +99,6 @@ public class SampleEnemy extends Enemy {
 	private void pushBack(Player player, float vx, float vy) {
 		Vector2 velocity = player.body.getLinearVelocity();
 		Vector2 forceBack = new Vector2(velocity.x <= 0 ? vx : -vx, vy);
-		player.body.setLinearVelocity(0, 0);
 		player.body.applyLinearImpulse(forceBack, player.body.getWorldCenter(), true);
 	}
 

@@ -106,6 +106,8 @@ public class GameScreen implements Screen {
 			map = maploader.load("Maps/Neo_Green_Hill_1.tmx");
 		} else if (currentMap == 2) {
 			map = maploader.load("Maps/Hot_Crater_Act_2.tmx");
+		} else if (currentMap == 3) {
+			map = maploader.load("Maps/final_map.tmx");
 		} else {
 			map = maploader.load("Maps/testMap.tmx");
 		}
@@ -135,15 +137,19 @@ public class GameScreen implements Screen {
 
 		// create background
 		if (currentMap == 1) {
-			bg = new Texture("Maps/bg.png");
+			bg = new Texture("Maps/bg_new.png");
 			bgCam = new OrthographicCamera(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
 			bgCam.position.set(SonicBoom.V_WIDTH / 2, SonicBoom.V_HEIGHT / 2, 0);
 		} else if (currentMap == 2) {
 			bg = new Texture("Maps/bg_map2.png");
 			bgCam = new OrthographicCamera(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
 			bgCam.position.set(SonicBoom.V_WIDTH / 2, SonicBoom.V_HEIGHT / 2, 0);
+		} else if (currentMap == 3) {
+			bg = new Texture("Maps/bg_sky.png");
+			bgCam = new OrthographicCamera(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
+			bgCam.position.set(SonicBoom.V_WIDTH / 2, SonicBoom.V_HEIGHT / 2, 0);
 		} else {
-			bg = new Texture("Maps/bg.png");
+			bg = new Texture("Maps/bg3.png");
 			bgCam = new OrthographicCamera(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
 			bgCam.position.set(SonicBoom.V_WIDTH / 2, SonicBoom.V_HEIGHT / 2, 0);
 		}
@@ -270,6 +276,11 @@ public class GameScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
 			dispose();
 			currentMap = 2;
+			game.setScreen(new GameScreen(game));
+		}
+		if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
+			dispose();
+			currentMap = 3;
 			game.setScreen(new GameScreen(game));
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.NUM_0)) {
