@@ -35,18 +35,20 @@ public class GameScreen implements Screen {
 	public static final int GAME_READY = 0;
 	public static final int GAME_RUNNING = 1;
 	public static final int GAME_PAUSED = 2;
-	public static final int GAME_OVER = 4;
-	public static final int GAME_END_LEVEL = 5;
-	public static final int GAME_WIN = 6;
+	public static final int GAME_OVER = 3;
+	public static final int GAME_END_LEVEL = 4;
+	public static final int GAME_WIN = 5;
 
 	private static int state;
 
 	private final int MAX_MAP_NUMBER = 3;
+	private static int currentMap = 1;
 
 	private boolean setToChangeMap;
 
 	// screen that relate to GameScreen
 	PauseMenuScreen pauseMenu;
+	GameWinScreen winScreen;
 
 	// batch for draw
 	Batch batch;
@@ -104,6 +106,7 @@ public class GameScreen implements Screen {
 		this.manager = game.manager;
 
 		pauseMenu = new PauseMenuScreen(this);
+		winScreen = new GameWinScreen(this);
 
 		// create hud
 		hud = new Hud(this);
@@ -122,17 +125,17 @@ public class GameScreen implements Screen {
 		// Load map and setup our map renderer
 		maploader = new TmxMapLoader();
 
-		if (GameScorer.getCurrentMap() == 1) {
+		if (currentMap == 1) {
 			map = maploader.load("Maps/Neo_Green_Hill_1.tmx");
 			hud.setMapName("Beach");
 			bg = game.manager.get("Maps/bg_new.png", Texture.class);
 			music = game.manager.get("Sound/Backgroundgame_1.mp3", Music.class);
-		} else if (GameScorer.getCurrentMap() == 2) {
+		} else if (currentMap == 2) {
 			map = maploader.load("Maps/Hot_Crater_Act_2.tmx");
 			hud.setMapName("Volcano");
 			bg = game.manager.get("Maps/bg_map2.png", Texture.class);
 			music = game.manager.get("Sound/Backgroundgame_2.mp3", Music.class);
-		} else if (GameScorer.getCurrentMap() == 3) {
+		} else if (currentMap == 3) {
 			map = maploader.load("Maps/final_map.tmx");
 			hud.setMapName("Boss");
 			bg = game.manager.get("Maps/bg_sky.png", Texture.class);
@@ -181,7 +184,7 @@ public class GameScreen implements Screen {
 		// create enemies
 		enemies = new Enemies(this);
 
-		if (GameScorer.getCurrentMap() == 1) {
+		if (currentMap == 1) {
 			GameScorer.start();
 		}
 
@@ -204,7 +207,7 @@ public class GameScreen implements Screen {
 		if (setToChangeMap) {
 			game.manager.get("Sound/ChangeMap.wav", Sound.class).play();
 
-			changeMap(GameScorer.getCurrentMap() + 1);
+			changeMap(currentMap + 1);
 		}
 	}
 
@@ -253,6 +256,7 @@ public class GameScreen implements Screen {
 		hud.dispose();
 		enemies.dispose();
 		pauseMenu.dispose();
+		winScreen.dispose();
 
 	}
 
@@ -279,6 +283,11 @@ public class GameScreen implements Screen {
 		// Test kill player
 		if (Gdx.input.isKeyJustPressed(Keys.K)) {
 			forceGameOver();
+		}
+
+		// Test win player
+		if (Gdx.input.isKeyJustPressed(Keys.W)) {
+			forceGameWin();
 		}
 
 		// Test reset score
@@ -314,6 +323,9 @@ public class GameScreen implements Screen {
 			break;
 		case GAME_OVER:
 			updateGameOver(delta);
+			break;
+		case GAME_WIN:
+			updateGameWin(delta);
 			break;
 		}
 	}
@@ -367,6 +379,10 @@ public class GameScreen implements Screen {
 		}
 	}
 
+	private void updateGameWin(float delta) {
+		updateRunning(delta);
+	}
+
 	private void draw(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -380,6 +396,9 @@ public class GameScreen implements Screen {
 			break;
 		case GAME_OVER:
 			presentGameOver(delta);
+			break;
+		case GAME_WIN:
+			presentGameWin(delta);
 			break;
 		}
 	}
@@ -419,7 +438,10 @@ public class GameScreen implements Screen {
 		}
 
 		// draw HUD
-		hud.render();
+		if (state != GAME_WIN && state != GAME_OVER) {
+			hud.render();
+		}
+
 	}
 
 	private void presentPaused(float delta) {
@@ -431,6 +453,14 @@ public class GameScreen implements Screen {
 		// overlay running
 		presentRunning(delta);
 		// render game over screen
+	}
+
+	private void presentGameWin(float delta) {
+		// overlay running
+		presentRunning(delta);
+		// render game win screen
+		winScreen.render(delta);
+
 	}
 
 	public TiledMap getMap() {
@@ -451,22 +481,44 @@ public class GameScreen implements Screen {
 
 	public static void forceGameOver() {
 		state = GAME_OVER;
+
+		System.out.println("=== Game OVER Result ===");
+		System.out.println("Ring Collected : " + GameScorer.getScore());
+		System.out.println("Time Played : " + GameScorer.getTimeCount() + "ms");
+		System.out.println();
 	}
 
 	public static boolean isGameOver() {
 		return state == GAME_OVER;
 	}
 
+	public static void forceGameWin() {
+		state = GAME_WIN;
+
+		System.out.println("=== Game WIN  Result ===");
+		System.out.println("Ring Collected : " + GameScorer.getScore());
+		System.out.println("Time Played : " + GameScorer.getTimeCount() + "ms");
+		System.out.println();
+	}
+
+	public static boolean isGameWin() {
+		return state == GAME_WIN;
+	}
+
 	private void changeMap(int level) {
 		if (level >= 1 && level <= MAX_MAP_NUMBER) {
 			dispose();
-			GameScorer.setMap(level);
+			currentMap = level;
 			game.setScreen(new GameScreen(game));
 		} else {
 			dispose();
-			GameScorer.setMap(0);
+			currentMap = 0;
 			game.setScreen(new GameScreen(game));
 		}
+	}
+
+	public static void setMap(int level) {
+		currentMap = level;
 	}
 
 	public void changeMap() {

@@ -75,7 +75,7 @@ public class HomeScreen implements Screen {
 				super.clicked(event, x, y);
 				game.manager.get("Sound/ChangeMap.wav", Sound.class).play();
 
-				GameScorer.setMap(1);
+				GameScreen.setMap(1);
 				game.setScreen(new GameScreen(game));
 			}
 		});

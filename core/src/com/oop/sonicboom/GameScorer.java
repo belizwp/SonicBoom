@@ -4,8 +4,6 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameScorer {
 
-	private static int currentMap = 1;
-
 	private static long startTime;
 	private static long startPauseTime;
 	private static long pauseTime;
@@ -39,21 +37,24 @@ public class GameScorer {
 	}
 
 	public static void addScore(int value) {
-		if (!GameScreen.isGameOver()) {
+		if (!GameScreen.isGameOver() && !GameScreen.isGameWin()) {
 			score += value;
 		}
 	}
 
 	public static int clearScore() {
+		if (!GameScreen.isGameOver() && !GameScreen.isGameWin()) {
+			if (score == 0) {
+				endGame();
+				return 0;
+			}
 
-		if (score == 0) {
-			endGame();
-			return 0;
+			int tempScore = score;
+			score = 0;
+			return tempScore;
 		}
+		return 0;
 
-		int tempScore = score;
-		score = 0;
-		return tempScore;
 	}
 
 	public static int getScore() {
@@ -61,18 +62,10 @@ public class GameScorer {
 	}
 
 	public static long getTimeCount() {
-		if (!GameScreen.isGameOver()) {
+		if (!GameScreen.isGameOver() && !GameScreen.isGameWin()) {
 			timeCount = TimeUtils.timeSinceMillis(startTime) - pauseTime;
 		}
 		return timeCount;
-	}
-
-	public static void setMap(int level) {
-		currentMap = level;
-	}
-
-	public static int getCurrentMap() {
-		return currentMap;
 	}
 
 }

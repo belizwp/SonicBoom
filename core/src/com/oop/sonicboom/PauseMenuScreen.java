@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -35,6 +36,10 @@ public class PauseMenuScreen implements Screen {
 		stage = new Stage(new StretchViewport(800, 600));
 
 		skin = game.manager.get("UIskin/uiskin.json", Skin.class);
+
+		for (Texture tex : skin.getAtlas().getTextures()) {
+			tex.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		}
 
 		TextButton btnResume = new TextButton("RESUME", skin);
 		btnResume.setWidth(200);
