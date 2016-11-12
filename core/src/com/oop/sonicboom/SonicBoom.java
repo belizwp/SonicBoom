@@ -27,6 +27,7 @@ public class SonicBoom extends Game {
 	public static final short LOOP_L_BIT = 512;
 	public static final short LOOP_L_SENSOR_BIT = 1024;
 	public static final short WARP_BIT = 2048;
+	public static final short BOSS_BIT = 4096;
 
 	// used by all screens
 	public SpriteBatch batch;

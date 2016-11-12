@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
-public abstract class Player extends Sprite{
+public abstract class Player extends Sprite {
 
 	protected GameScreen game;
 
@@ -89,7 +89,7 @@ public abstract class Player extends Sprite{
 		fdef.filter.categoryBits = SonicBoom.PLAYER_BIT;
 		fdef.filter.maskBits = SonicBoom.GROUND_BIT | SonicBoom.PLATFORM_BIT | SonicBoom.LOOP_SWITCH_BIT
 				| SonicBoom.LOOP_R_BIT | SonicBoom.LOOP_R_SENSOR_BIT | SonicBoom.LOOP_L_BIT
-				| SonicBoom.LOOP_L_SENSOR_BIT | SonicBoom.OBJECT_BIT;
+				| SonicBoom.LOOP_L_SENSOR_BIT | SonicBoom.OBJECT_BIT | SonicBoom.BOSS_BIT;
 
 		fixture = body.createFixture(fdef);
 		fixture.setUserData(this);

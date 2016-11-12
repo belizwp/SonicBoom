@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.utils.Array;
 
 public class SampleEnemy extends Enemy {
@@ -23,6 +24,13 @@ public class SampleEnemy extends Enemy {
 		super(game, object);
 
 		defineAnimation();
+
+		body.setType(BodyType.DynamicBody);
+
+		Filter filter = new Filter();
+		filter.categoryBits = SonicBoom.BOSS_BIT;
+		fixture.setFilterData(filter);
+		fixture.setSensor(false);
 
 		limitDistance = 3;
 	}

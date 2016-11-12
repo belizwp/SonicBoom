@@ -80,6 +80,13 @@ public class WorldContactListener implements ContactListener {
 				((Enemy) fixA.getUserData()).hit();
 			}
 			break;
+		case SonicBoom.PLAYER_BIT | SonicBoom.BOSS_BIT:
+			if (fixA.getFilterData().categoryBits == SonicBoom.PLAYER_BIT) {
+				((Enemy) fixB.getUserData()).hit();
+			} else {
+				((Enemy) fixA.getUserData()).hit();
+			}
+			break;
 		case SonicBoom.PLAYER_BIT | SonicBoom.WARP_BIT:
 			game.changeMap();
 			break;
