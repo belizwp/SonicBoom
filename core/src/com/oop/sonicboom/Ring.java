@@ -1,5 +1,6 @@
 package com.oop.sonicboom;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -31,6 +32,7 @@ public class Ring extends Item {
 
 	@Override
 	public void hit() {
+		game.manager.get("Sound/Ring (mono).wav", Sound.class).play();
 		GameScorer.addScore(1);
 		destroy();
 	}

@@ -1,6 +1,7 @@
 package com.oop.sonicboom;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SonicBoom extends Game {
@@ -29,12 +30,14 @@ public class SonicBoom extends Game {
 
 	// used by all screens
 	public SpriteBatch batch;
+	public AssetManager manager;
 
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
+		manager = new AssetManager();
 
-		setScreen(new HomeScreen(this));
+		setScreen(new LoadingScreen(this));
 	}
 
 	@Override
@@ -45,5 +48,6 @@ public class SonicBoom extends Game {
 	@Override
 	public void dispose() {
 		batch.dispose();
+		manager.dispose();
 	}
 }

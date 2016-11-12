@@ -2,10 +2,13 @@ package com.oop.sonicboom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -34,6 +37,8 @@ public class HomeScreen implements Screen {
 	private Viewport viewport;
 	private Texture img;
 
+	private Music music;
+
 	public HomeScreen(final SonicBoom game) {
 		this.game = game;
 
@@ -44,14 +49,16 @@ public class HomeScreen implements Screen {
 
 		cam.setToOrtho(false, 900, 671);
 
-		img = new Texture("home screen.png");// choose img
+		img = game.manager.get("HomeScreen/home screen.png");
+		img.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		stage = new Stage(new StretchViewport(1920, 1024));// 1920, 1024
 		Gdx.input.setInputProcessor(stage);
-		font = new BitmapFont();
+		font = game.manager.get("UIskin/junegull.ttf", BitmapFont.class);
+		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		skin = new Skin();
-		buttonAtlas = new TextureAtlas("Homescreen/homebut.pack");// choose img
+		buttonAtlas = game.manager.get("HomeScreen/homebut.pack");
 		skin.addRegions(buttonAtlas);
 
 		textButtonStyle = new TextButtonStyle();
@@ -66,7 +73,10 @@ public class HomeScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
-				game.setScreen(new GameScreen((SonicBoom) game));
+				game.manager.get("Sound/ChangeMap.wav", Sound.class).play();
+
+				GameScorer.setMap(1);
+				game.setScreen(new GameScreen(game));
 			}
 		});
 
@@ -82,6 +92,7 @@ public class HomeScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
+				game.manager.get("Sound/ChangeMap.wav", Sound.class).play();
 				game.setScreen(new TutorialScreen(game));
 			}
 		});
@@ -102,27 +113,28 @@ public class HomeScreen implements Screen {
 			}
 		});
 
-		Label forestLabel = new Label("START", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		forestLabel.setFontScale((float) 4.0);
-		forestLabel.setPosition(420, 580);
+		Label forestLabel = new Label("START", new Label.LabelStyle(font, Color.WHITE));
+		forestLabel.setFontScale(3);
+		forestLabel.setPosition(410, 580);
 		stage.addActor(forestLabel);
 
-		Label forestLabel1 = new Label("TUTORAIL", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		forestLabel1.setFontScale((float) 4.0);
-		forestLabel1.setPosition(380, 380);
+		Label forestLabel1 = new Label("TUTORIAL", new Label.LabelStyle(font, Color.WHITE));
+		forestLabel1.setFontScale(3);
+		forestLabel1.setPosition(350, 380);
 		stage.addActor(forestLabel1);
 
-		Label forestLabel2 = new Label("EXIT", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		forestLabel2.setFontScale((float) 4.0);
+		Label forestLabel2 = new Label("EXIT", new Label.LabelStyle(font, Color.WHITE));
+		forestLabel2.setFontScale(3);
 		forestLabel2.setPosition(440, 180);
 		stage.addActor(forestLabel2);
 
+		music = game.manager.get("Sound/Introduction.mp3", Music.class);
+		music.setLooping(true);
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-
+		music.play();
 	}
 
 	@Override
@@ -161,14 +173,12 @@ public class HomeScreen implements Screen {
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-
+		music.stop();
 	}
 
 	@Override
 	public void dispose() {
 		stage.dispose();
 		skin.dispose();
-		img.dispose();
 	}
 }

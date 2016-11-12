@@ -3,9 +3,13 @@ package com.oop.sonicboom;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -25,12 +29,15 @@ public class GameScreen implements Screen {
 	// Reference to our Game, used to set Screens
 	final SonicBoom game;
 
+	public AssetManager manager;
+
 	// Game State
 	public static final int GAME_READY = 0;
 	public static final int GAME_RUNNING = 1;
 	public static final int GAME_PAUSED = 2;
 	public static final int GAME_OVER = 4;
 	public static final int GAME_END_LEVEL = 5;
+	public static final int GAME_WIN = 6;
 
 	private static int state;
 
@@ -89,15 +96,25 @@ public class GameScreen implements Screen {
 	// Enemies
 	private Enemies enemies;
 
+	private Music music;
+
 	public GameScreen(SonicBoom game) {
 		this.game = game;
 		this.batch = game.batch;
+		this.manager = game.manager;
 
 		pauseMenu = new PauseMenuScreen(this);
+
+		// create hud
+		hud = new Hud(this);
 
 		// create cam used to follow player through cam world
 		gameCam = new OrthographicCamera();
 		updateCam = true;
+
+		// create background cam
+		bgCam = new OrthographicCamera(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
+		bgCam.position.set(SonicBoom.V_WIDTH / 2, SonicBoom.V_HEIGHT / 2, 0);
 
 		// create a StretchViewport
 		gamePort = new StretchViewport(SonicBoom.V_WIDTH / SonicBoom.PPM, SonicBoom.V_HEIGHT / SonicBoom.PPM, gameCam);
@@ -107,13 +124,28 @@ public class GameScreen implements Screen {
 
 		if (GameScorer.getCurrentMap() == 1) {
 			map = maploader.load("Maps/Neo_Green_Hill_1.tmx");
+			hud.setMapName("Beach");
+			bg = game.manager.get("Maps/bg_new.png", Texture.class);
+			music = game.manager.get("Sound/Backgroundgame_1.mp3", Music.class);
 		} else if (GameScorer.getCurrentMap() == 2) {
 			map = maploader.load("Maps/Hot_Crater_Act_2.tmx");
+			hud.setMapName("Volcano");
+			bg = game.manager.get("Maps/bg_map2.png", Texture.class);
+			music = game.manager.get("Sound/Backgroundgame_2.mp3", Music.class);
 		} else if (GameScorer.getCurrentMap() == 3) {
 			map = maploader.load("Maps/final_map.tmx");
+			hud.setMapName("Boss");
+			bg = game.manager.get("Maps/bg_sky.png", Texture.class);
+			music = game.manager.get("Sound/Background_Bossfight.mp3", Music.class);
 		} else {
 			map = maploader.load("Maps/testMap.tmx");
+			hud.setMapName("TEST ROOM");
+			bg = game.manager.get("Maps/bg3.png", Texture.class);
+			music = game.manager.get("Sound/Backgroundgame_1.mp3", Music.class);
 		}
+
+		bg.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		music.setLooping(true);
 
 		renderer = new OrthogonalTiledMapRenderer(map, 1 / SonicBoom.PPM);
 		mapProperties = map.getProperties();
@@ -134,28 +166,6 @@ public class GameScreen implements Screen {
 		// allows for debug lines of box2d world.
 		b2dr = new Box2DDebugRenderer();
 		shapeRenderer = new ShapeRenderer();
-
-		// create hud
-		hud = new Hud();
-
-		// create background
-		if (GameScorer.getCurrentMap() == 1) {
-			bg = new Texture("Maps/bg_new.png");
-			bgCam = new OrthographicCamera(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
-			bgCam.position.set(SonicBoom.V_WIDTH / 2, SonicBoom.V_HEIGHT / 2, 0);
-		} else if (GameScorer.getCurrentMap() == 2) {
-			bg = new Texture("Maps/bg_map2.png");
-			bgCam = new OrthographicCamera(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
-			bgCam.position.set(SonicBoom.V_WIDTH / 2, SonicBoom.V_HEIGHT / 2, 0);
-		} else if (GameScorer.getCurrentMap() == 3) {
-			bg = new Texture("Maps/bg_sky.png");
-			bgCam = new OrthographicCamera(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
-			bgCam.position.set(SonicBoom.V_WIDTH / 2, SonicBoom.V_HEIGHT / 2, 0);
-		} else {
-			bg = new Texture("Maps/bg3.png");
-			bgCam = new OrthographicCamera(SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
-			bgCam.position.set(SonicBoom.V_WIDTH / 2, SonicBoom.V_HEIGHT / 2, 0);
-		}
 
 		// parse box2d object from map
 		parser = new Box2DMapObjectParser(1 / SonicBoom.PPM);
@@ -181,6 +191,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(player.getInputProcessor());
+		music.play();
 
 	}
 
@@ -191,6 +202,8 @@ public class GameScreen implements Screen {
 		handleInput(delta);
 
 		if (setToChangeMap) {
+			game.manager.get("Sound/ChangeMap.wav", Sound.class).play();
+
 			changeMap(GameScorer.getCurrentMap() + 1);
 		}
 	}
@@ -207,7 +220,8 @@ public class GameScreen implements Screen {
 			state = GAME_PAUSED;
 			GameScorer.pause();
 			pauseMenu.show();
-			hide();
+			music.pause();
+			game.manager.get("Sound/ManuSelect.mp3", Sound.class).play();
 		}
 
 	}
@@ -218,6 +232,7 @@ public class GameScreen implements Screen {
 			state = GAME_RUNNING;
 			GameScorer.reseume();
 			pauseMenu.hide();
+			music.play();
 			show();
 		}
 
@@ -225,21 +240,17 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
+		music.stop();
 
 	}
 
 	@Override
 	public void dispose() {
 
-		map.dispose();
 		renderer.dispose();
 		b2dr.dispose();
 		world.dispose();
 		hud.dispose();
-		bg.dispose();
-		gameObjects.dispose();
-		player.dispose();
 		enemies.dispose();
 		pauseMenu.dispose();
 
@@ -350,6 +361,10 @@ public class GameScreen implements Screen {
 	private void updateGameOver(float delta) {
 		updateRunning(delta);
 		player.kill();
+
+		if (music.isPlaying()) {
+			music.stop();
+		}
 	}
 
 	private void draw(float delta) {

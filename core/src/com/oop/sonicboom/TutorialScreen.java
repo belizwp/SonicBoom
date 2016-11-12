@@ -2,10 +2,12 @@ package com.oop.sonicboom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -44,14 +46,16 @@ public class TutorialScreen implements Screen {
 
 		cam.setToOrtho(false, 510, 510);
 
-		img = new Texture("tutorial.jpg");
+		img = game.manager.get("TutorialScreen/Tutorialbg.jpg", Texture.class);
+		img.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		stage = new Stage(new StretchViewport(1920, 1024));
 		Gdx.input.setInputProcessor(stage);
-		font = new BitmapFont();
+		font = game.manager.get("UIskin/junegull.ttf", BitmapFont.class);
+		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		skin = new Skin();
-		buttonAtlas = new TextureAtlas("tutorials/button.pack");
+		buttonAtlas = game.manager.get("TutorialScreen/button.pack", TextureAtlas.class);
 		skin.addRegions(buttonAtlas);
 
 		textButtonStyle = new TextButtonStyle();
@@ -75,13 +79,13 @@ public class TutorialScreen implements Screen {
 
 		screenbut.setPosition(230, 400);// spacebar
 
-		Label forestLabel = new Label("MOVE ANIMATION", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		forestLabel.setFontScale((float) 4.0);
+		Label forestLabel = new Label("MOVE ANIMATION", new Label.LabelStyle(font, Color.WHITE));
+		forestLabel.setFontScale(3);
 		forestLabel.setPosition(1000, 630);
 		stage.addActor(forestLabel);
 
-		Label forestLabel2 = new Label("JUMP ANIMATION", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		forestLabel2.setFontScale((float) 4.0);
+		Label forestLabel2 = new Label("JUMP ANIMATION", new Label.LabelStyle(font, Color.WHITE));
+		forestLabel2.setFontScale(3);
 		forestLabel2.setPosition(1000, 435);
 		stage.addActor(forestLabel2);
 
@@ -101,6 +105,7 @@ public class TutorialScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
+				game.manager.get("Sound/ChangeMap.wav", Sound.class).play();
 				game.setScreen(new HomeScreen(game));
 			}
 		});
@@ -157,6 +162,5 @@ public class TutorialScreen implements Screen {
 	public void dispose() {
 		stage.dispose();
 		skin.dispose();
-		img.dispose();
 	}
 }

@@ -2,7 +2,9 @@ package com.oop.sonicboom;
 
 import java.util.Random;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -49,7 +51,8 @@ public class Sonic extends Player {
 
 		faceRight = true;
 
-		texture = new Texture("Sprites/boss.png");
+		texture = game.manager.get("Sprites/boss.png", Texture.class);
+		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -126,6 +129,8 @@ public class Sonic extends Player {
 			if (tempRing <= 0) {
 				loseRing = false;
 			}
+
+			game.manager.get("Sound/Lose Rings.wav", Sound.class).play();
 		}
 
 		// hurting time update
@@ -271,6 +276,9 @@ public class Sonic extends Player {
 
 		if (spinCharged) {
 			body.setActive(false);
+
+			game.manager.get("Sound/Spin.wav", Sound.class)
+					.setVolume(game.manager.get("Sound/Spin.wav", Sound.class).play(), 0.5f);
 		}
 
 		if (moveRight && (spd.x <= MAX_SPIN_SPD && spinning || spd.x <= MAX_NORM_SPD)) {
@@ -303,6 +311,8 @@ public class Sonic extends Player {
 		if (onGround && (contactAngle <= 80 && contactAngle >= -80)) {
 			body.applyForce(new Vector2(0, 13f), body.getWorldCenter(), true);
 			spinJump = true;
+
+			game.manager.get("Sound/jump.wav", Sound.class).play();
 		}
 	}
 
@@ -315,11 +325,8 @@ public class Sonic extends Player {
 		} else {
 			body.applyLinearImpulse(new Vector2(-0.4f, 0), body.getWorldCenter(), true);
 		}
-	}
 
-	@Override
-	public void dispose() {
-		texture.dispose();
+		game.manager.get("Sound/Dash.wav", Sound.class).play();
 	}
 
 	@Override
@@ -348,6 +355,8 @@ public class Sonic extends Player {
 			Filter filter = new Filter();
 			filter.categoryBits = SonicBoom.NOTHING_BIT;
 			fixture.setFilterData(filter);
+
+			game.manager.get("Sound/Death.wav", Sound.class).play();
 		}
 
 	}

@@ -1,5 +1,6 @@
 package com.oop.sonicboom;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Filter;
@@ -27,6 +28,8 @@ public class DashPanel extends GameObject {
 	public void hit() {
 		// speed up
 		game.player.body.applyLinearImpulse(force, game.player.body.getWorldCenter(), true);
+
+		game.manager.get("Sound/Dash.wav", Sound.class).play();
 	}
 
 	@Override

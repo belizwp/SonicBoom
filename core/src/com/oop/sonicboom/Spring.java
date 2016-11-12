@@ -1,5 +1,6 @@
 package com.oop.sonicboom;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
@@ -39,6 +40,8 @@ public class Spring extends GameObject {
 		// bump it!
 		game.player.body.setLinearVelocity(0, 0);
 		game.player.body.applyLinearImpulse(force, game.player.body.getWorldCenter(), true);
+
+		game.manager.get("Sound/Item box break.wav", Sound.class).play();
 	}
 
 	@Override

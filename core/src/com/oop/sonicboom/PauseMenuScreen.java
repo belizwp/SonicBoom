@@ -2,6 +2,7 @@ package com.oop.sonicboom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -33,7 +34,7 @@ public class PauseMenuScreen implements Screen {
 
 		stage = new Stage(new StretchViewport(800, 600));
 
-		skin = new Skin(Gdx.files.internal("UIskin/uiskin.json"));
+		skin = game.manager.get("UIskin/uiskin.json", Skin.class);
 
 		TextButton btnResume = new TextButton("RESUME", skin);
 		btnResume.setWidth(200);
@@ -44,6 +45,7 @@ public class PauseMenuScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
+				game.manager.get("Sound/ChangeMap.wav", Sound.class).play();
 				game.resume();
 			}
 		});
@@ -113,7 +115,6 @@ public class PauseMenuScreen implements Screen {
 	@Override
 	public void dispose() {
 		stage.dispose();
-		skin.dispose();
 	}
 
 	public void generateBG() {

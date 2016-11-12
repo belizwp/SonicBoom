@@ -1,6 +1,7 @@
 package com.oop.sonicboom;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
@@ -27,7 +28,8 @@ public class SampleEnemy extends Enemy {
 	}
 
 	private void defineAnimation() {
-		sprite = new Texture("Sprites/sampleEnemySprite.png");
+		sprite = game.manager.get("Sprites/sampleEnemySprite.png", Texture.class);
+		sprite.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		frames.add(new TextureRegion(sprite, 0, 0, 32, 32));
@@ -104,7 +106,6 @@ public class SampleEnemy extends Enemy {
 
 	@Override
 	public void dispose() {
-		sprite.dispose();
 	}
 
 }

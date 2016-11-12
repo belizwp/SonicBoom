@@ -1,6 +1,7 @@
 package com.oop.sonicboom;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,9 +15,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Disposable;
 
-public class GameObjects implements Disposable {
+public class GameObjects {
 
 	private final float TERMINATE_TIME = 3;
 
@@ -46,7 +46,8 @@ public class GameObjects implements Disposable {
 		rings = new Array<Ring>();
 
 		// create ring Animation
-		ringTexture = new Texture("Sprites/ring.gif");
+		ringTexture = game.manager.get("Sprites/ring.gif", Texture.class);
+		ringTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		frames.add(new TextureRegion(ringTexture, 0, 0, 16, 16));
@@ -167,10 +168,5 @@ public class GameObjects implements Disposable {
 		for (GameObject object : objects) {
 			object.draw(batch);
 		}
-	}
-
-	@Override
-	public void dispose() {
-		ringTexture.dispose();
 	}
 }
