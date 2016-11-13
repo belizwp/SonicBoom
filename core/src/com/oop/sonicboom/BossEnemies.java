@@ -137,6 +137,7 @@ public class BossEnemies extends Enemy {
 
 			if (deadTime < 0) {
 				destroy();
+				GameScreen.forceGameWin();
 			}
 		}
 
@@ -155,6 +156,23 @@ public class BossEnemies extends Enemy {
 			pushBack(game.player, 0.125f, 0.2f);
 			game.player.hurt(1);
 			game.player.loseRing(GameScorer.clearScore());
+		}
+	}
+	
+	private void moveToPlayer(float vX) {
+		float playerX = game.player.body.getWorldCenter().x;
+		float bossX = body.getWorldCenter().x;
+
+		float bossVelocityX = body.getLinearVelocity().x;
+		float limitVelocity = 2.5f;
+
+		// player is left side of boss
+		if (playerX < bossX && bossVelocityX > -limitVelocity) {
+			body.applyLinearImpulse(new Vector2(-vX, 0), body.getWorldCenter(), true);
+		}
+		// player is right side of boss
+		if (playerX > bossX && bossVelocityX > limitVelocity) {
+			body.applyLinearImpulse(new Vector2(vX, 0), body.getWorldCenter(), true);
 		}
 	}
 
