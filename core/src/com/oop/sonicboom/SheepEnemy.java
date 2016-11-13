@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 
@@ -12,18 +13,28 @@ public class SheepEnemy extends Enemy {
 
 	private static Texture sprite1, sprite2, sprite3, sprite4, sprite5, sprite6;
 	private static Animation animation;
+	private static Animation deadAnimation;
 	private float stateTime;
-	
+
 	private float distance;
 	private float limitDistance;
-	private boolean go, dead=true;
+	private boolean go, dead;
+
+	private float deadTime = 0.35f;
 
 	public SheepEnemy(GameScreen game, MapObject object) {
 		super(game, object);
 
 		defineAnimation();
+		
+		body.setType(BodyType.DynamicBody);
 
-		limitDistance = 4;
+		Filter filter = new Filter();
+		filter.categoryBits = SonicBoom.BOSS_BIT;
+		fixture.setFilterData(filter);
+		fixture.setSensor(false);
+
+		limitDistance = 5 ;
 	}
 
 	private void defineAnimation() {
@@ -35,17 +46,18 @@ public class SheepEnemy extends Enemy {
 		sprite6 = new Texture("Sprites/sheep6.png");
 
 		Array<TextureRegion> frames = new Array<TextureRegion>();
-		if(dead){
-			frames.add(new TextureRegion(sprite1, 0, 0, 96, 65));
-			frames.add(new TextureRegion(sprite2, 0, 0, 96, 65));
-			frames.add(new TextureRegion(sprite3, 0, 0, 96, 65));
-			frames.add(new TextureRegion(sprite4, 0, 0, 96, 65));
-			frames.add(new TextureRegion(sprite5, 0, 0, 96, 65));
-		} else{
-			frames.add(new TextureRegion(sprite6, 0, 0, 96, 65));
-		}
+		frames.add(new TextureRegion(sprite1, 0, 0, 96, 65));
+		frames.add(new TextureRegion(sprite2, 0, 0, 96, 65));
+		frames.add(new TextureRegion(sprite3, 0, 0, 96, 65));
+		frames.add(new TextureRegion(sprite4, 0, 0, 96, 65));
+		frames.add(new TextureRegion(sprite5, 0, 0, 96, 65));
 
-		animation = new Animation(0.2f, frames);
+		animation = new Animation(0.1f, frames);
+		frames.clear();
+
+		frames.add(new TextureRegion(sprite6, 0, 0, 96, 65));
+
+		deadAnimation = new Animation(0.2f, frames);
 		frames.clear();
 
 	}
@@ -83,25 +95,38 @@ public class SheepEnemy extends Enemy {
 	@Override
 	public void update(float delta) {
 		super.update(delta);
-		
+
 		// set current picture of animation
-		setRegion(animation.getKeyFrame(stateTime, true));
+		if (!dead) {
+			setRegion(animation.getKeyFrame(stateTime, true));
+
+			// make it moving around
+			moveAround(delta);
+
+		} else {
+			setRegion(deadAnimation.getKeyFrame(stateTime, true));
+			deadTime -= delta;
+
+			if (deadTime < 0) {
+				destroy();
+			}
+		}
+
 		stateTime += delta;
 
 		// flip picture
 		flip();
-
-		// make it moving around
-		moveAround(delta);
 	}
 
 	@Override
 	public void hit() {
 		// do some thing
 		if (game.player.spinning || game.player.spinJump) {
-			dead = false;
-			destroy();
-			
+			dead = true;
+		} else {
+			pushBack(game.player, 0.125f, 0.2f);
+			game.player.hurt(1);
+			game.player.loseRing(GameScorer.clearScore());
 		}
 	}
 
@@ -111,7 +136,7 @@ public class SheepEnemy extends Enemy {
 		player.body.setLinearVelocity(0, 0);
 		player.body.applyLinearImpulse(forceBack, player.body.getWorldCenter(), true);
 	}
-	
+
 	@Override
 	public void dispose() {
 		sprite1.dispose();
