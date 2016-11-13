@@ -153,6 +153,7 @@ public class LoadingScreen implements Screen {
 
 		// Win Screen
 		game.manager.load("WinScreen/youWin.png", Texture.class);
+		game.manager.load("WinScreen/highScore.png", Texture.class);
 
 		// Ring
 		game.manager.load("Sprites/ring.gif", Texture.class);

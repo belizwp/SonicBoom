@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -20,6 +21,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.BufferUtils;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
@@ -67,10 +71,17 @@ public class GameWinScreen implements Screen {
 
 	private boolean newHighScore;
 
+	private Image newHighScoreTag;
+
+	private Texture bg;
+
 	public GameWinScreen(final SonicBoom game) {
 		this.game = game;
 
-		stage = new Stage();
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, 800, 600);
+
+		stage = new Stage(new StretchViewport(800, 600));
 		// stage.setDebugAll(true);
 
 		skin = game.manager.get("UIskin/uiskin.json", Skin.class);
@@ -97,6 +108,10 @@ public class GameWinScreen implements Screen {
 		Texture winPic = game.manager.get("WinScreen/youWin.png", Texture.class);
 		winPic.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		Image win = new Image(winPic);
+
+		Texture newHighScorePic = game.manager.get("WinScreen/highScore.png", Texture.class);
+		newHighScorePic.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		newHighScoreTag = new Image(newHighScorePic);
 
 		// Home Button
 		buttonHome = new TextButton("HOME", skin);
@@ -128,15 +143,18 @@ public class GameWinScreen implements Screen {
 			public void clicked(InputEvent event, float x, float y) {
 				game.manager.get("Sound/ChangeMap.wav", Sound.class).play();
 
-				GameScorer.addNewHighScore(txfPlayerName.getText());
+				if (!txfPlayerName.getText().contains(" ")) {
+					GameScorer.addNewHighScore(txfPlayerName.getText());
 
-				GameScorer.save();
+					GameScorer.save();
 
-				updateLabel();
+					updateLabel();
 
-				txfPlayerName.setVisible(false);
-				buttonSubmit.setVisible(false);
-				buttonHome.setVisible(true);
+					txfPlayerName.setVisible(false);
+					buttonSubmit.setVisible(false);
+					buttonHome.setVisible(true);
+					newHighScoreTag.setVisible(false);
+				}
 
 				System.out.println(txfPlayerName.getText());
 			}
@@ -177,7 +195,6 @@ public class GameWinScreen implements Screen {
 		highScoreTable.add().width(150).padBottom(10);
 		highScoreTable.add(highScoreLabel).padBottom(10);
 		highScoreTable.add().width(150).padBottom(10).row();
-		;
 
 		highScoreTable.add(name1).width(150);
 		highScoreTable.add(score1).width(150);
@@ -202,19 +219,28 @@ public class GameWinScreen implements Screen {
 		table.add(highScoreTable).padTop(20).row();
 
 		// button table
-		buttonTable.padRight(90);
+		buttonTable.padRight(180);
+		buttonTable.add(newHighScoreTag).width(80).height(80).padRight(20);
 		buttonTable.add(txfPlayerName).padRight(15);
 		buttonTable.add(buttonHome).padRight(15);
 		buttonTable.add(buttonSubmit);
 
-		table.add(buttonTable).padTop(40);
+		table.add(buttonTable).padTop(20);
 
 		// creating animations
 		tweenManager = new TweenManager();
 		Tween.registerAccessor(Actor.class, new ActorAccessor());
 
 		// heading color animation
-		Timeline.createSequence().beginSequence().start(tweenManager);
+		Timeline.createSequence().beginSequence()
+				.push(Tween.to(newHighScoreTag, ActorAccessor.RGB, .5f).target(0, 0, 1))
+				.push(Tween.to(newHighScoreTag, ActorAccessor.RGB, .5f).target(0, 1, 0))
+				.push(Tween.to(newHighScoreTag, ActorAccessor.RGB, .5f).target(1, 0, 0))
+				.push(Tween.to(newHighScoreTag, ActorAccessor.RGB, .5f).target(1, 1, 0))
+				.push(Tween.to(newHighScoreTag, ActorAccessor.RGB, .5f).target(0, 1, 1))
+				.push(Tween.to(newHighScoreTag, ActorAccessor.RGB, .5f).target(1, 0, 1))
+				.push(Tween.to(newHighScoreTag, ActorAccessor.RGB, .5f).target(1, 1, 1)).end().repeat(Tween.INFINITY, 0)
+				.start(tweenManager);
 
 		// heading and buttons fade-in
 		Timeline.createSequence().beginSequence().push(Tween.set(buttonHome, ActorAccessor.ALPHA).target(0))
@@ -236,11 +262,15 @@ public class GameWinScreen implements Screen {
 			txfPlayerName.setVisible(true);
 			buttonSubmit.setVisible(true);
 			buttonHome.setVisible(false);
+			newHighScoreTag.setVisible(true);
 		} else {
 			txfPlayerName.setVisible(false);
 			buttonSubmit.setVisible(false);
 			buttonHome.setVisible(true);
+			newHighScoreTag.setVisible(false);
 		}
+
+		generateBlurBG();
 
 	}
 
@@ -248,6 +278,11 @@ public class GameWinScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		game.batch.setProjectionMatrix(camera.combined);
+		game.batch.begin();
+		game.batch.draw(bg, 0, 0, 800, 600);
+		game.batch.end();
 
 		stage.act(delta);
 		stage.draw();
@@ -312,6 +347,7 @@ public class GameWinScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+
 	}
 
 	@Override
@@ -332,6 +368,28 @@ public class GameWinScreen implements Screen {
 	@Override
 	public void dispose() {
 		stage.dispose();
+		bg.dispose();
+	}
+
+	public void generateBlurBG() {
+		// load original pixmap
+		byte[] pixels = ScreenUtils.getFrameBufferPixels(0, 0, Gdx.graphics.getBackBufferWidth(),
+				Gdx.graphics.getBackBufferHeight(), true);
+
+		Pixmap pixmap = new Pixmap(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(),
+				Pixmap.Format.RGBA8888);
+		BufferUtils.copy(pixels, 0, pixmap.getPixels(), pixels.length);
+
+		// Blur the original pixmap with a radius of 4 px
+		// The blur is applied over 2 iterations for better quality
+		// We specify "disposePixmap=true" to destroy the original pixmap
+		Pixmap blurred = BlurUtils.blur(pixmap, 8, 2, true);
+
+		// we then create a GL texture with the blurred pixmap
+		bg = new Texture(blurred);
+
+		// dispose our blurred data now that it resides on the GPU
+		blurred.dispose();
 	}
 
 }

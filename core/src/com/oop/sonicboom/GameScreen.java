@@ -272,12 +272,6 @@ public class GameScreen implements Screen {
 
 	private void handleInput(float delta) {
 
-		// toggle debug mode
-		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT))
-			if (Gdx.input.isKeyJustPressed(Keys.B)) {
-				toggleDebug();
-			}
-
 		// pause / resume
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			if (state == GAME_RUNNING) {
@@ -287,7 +281,11 @@ public class GameScreen implements Screen {
 			}
 		}
 
-		if (debug) {
+		// debug access
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)) {
+			if (Gdx.input.isKeyJustPressed(Keys.B)) {
+				toggleDebug();
+			}
 			// Test ring spawning for now
 			if (Gdx.input.isKeyPressed(Keys.C)) {
 				gameObjects.spawnRing(player.body.getWorldCenter().add(-8 / SonicBoom.PPM, 50 / SonicBoom.PPM), 0, 3);
@@ -322,6 +320,7 @@ public class GameScreen implements Screen {
 				changeMap(0);
 			}
 		}
+
 	}
 
 	private void update(float delta) {
