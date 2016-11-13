@@ -49,7 +49,7 @@ public class Hud implements Disposable {
 		timeLabel = new Label("Time", new Label.LabelStyle(textFont, Color.WHITE));
 		levelLabel = new Label("Sea", new Label.LabelStyle(textFont, Color.WHITE));
 		worldLabel = new Label("MAP", new Label.LabelStyle(textFont, Color.WHITE));
-		sonicLabel = new Label("Boss", new Label.LabelStyle(textFont, Color.WHITE));
+		sonicLabel = new Label("Score", new Label.LabelStyle(textFont, Color.WHITE));
 
 		// define our labels using the String, and a Label style consisting of a
 		// font and color

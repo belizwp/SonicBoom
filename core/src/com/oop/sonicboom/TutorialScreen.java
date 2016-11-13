@@ -3,7 +3,6 @@ package com.oop.sonicboom;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -32,7 +30,6 @@ public class TutorialScreen implements Screen {
 	private BitmapFont font;
 	private TextButton button_ex;
 	private TextButtonStyle textButtonStyle;
-	private TextButton screenbut;
 	private Viewport viewport;
 	private Texture img;
 
@@ -44,7 +41,7 @@ public class TutorialScreen implements Screen {
 
 		cam = new OrthographicCamera();
 
-		cam.setToOrtho(false, 510, 510);
+		cam.setToOrtho(false, 800, 600);
 
 		img = game.manager.get("TutorialScreen/Tutorialbg.jpg", Texture.class);
 		img.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -52,44 +49,10 @@ public class TutorialScreen implements Screen {
 		stage = new Stage(new StretchViewport(1920, 1024));
 		Gdx.input.setInputProcessor(stage);
 		font = game.manager.get("UIskin/junegull.ttf", BitmapFont.class);
-		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		skin = new Skin();
 		buttonAtlas = game.manager.get("TutorialScreen/button.pack", TextureAtlas.class);
 		skin.addRegions(buttonAtlas);
-
-		textButtonStyle = new TextButtonStyle();
-		textButtonStyle.font = font;
-		textButtonStyle.up = skin.getDrawable("arrow key");
-		textButtonStyle.down = skin.getDrawable("arrow key");
-		textButtonStyle.checked = skin.getDrawable("arrow key");
-		screenbut = new TextButton("", textButtonStyle);
-		stage.addActor(screenbut);
-		screenbut.setWidth(300);
-		screenbut.setHeight(300);
-		screenbut.setPosition(400, 550);// arrow keys
-
-		textButtonStyle = new TextButtonStyle();
-		textButtonStyle.font = font;
-		textButtonStyle.up = skin.getDrawable("newspace");
-		textButtonStyle.down = skin.getDrawable("newspace");
-		textButtonStyle.checked = skin.getDrawable("newspace");
-		screenbut = new TextButton("", textButtonStyle);
-		stage.addActor(screenbut);
-
-		screenbut.setPosition(230, 400);// spacebar
-
-		Label forestLabel = new Label("MOVE ANIMATION", new Label.LabelStyle(font, Color.WHITE));
-		forestLabel.setFontScale(3);
-		forestLabel.setPosition(1000, 630);
-		stage.addActor(forestLabel);
-
-		Label forestLabel2 = new Label("JUMP ANIMATION", new Label.LabelStyle(font, Color.WHITE));
-		forestLabel2.setFontScale(3);
-		forestLabel2.setPosition(1000, 435);
-		stage.addActor(forestLabel2);
-
-		textButtonStyle = new TextButtonStyle();
 
 		textButtonStyle = new TextButtonStyle();
 		textButtonStyle.font = font;
@@ -125,7 +88,7 @@ public class TutorialScreen implements Screen {
 
 		game.batch.setProjectionMatrix(cam.combined);
 		game.batch.begin();
-		game.batch.draw(img, 0, 0);
+		game.batch.draw(img, 0, 0, 800, 600);
 		game.batch.end();
 
 		stage.act(Gdx.graphics.getDeltaTime());
