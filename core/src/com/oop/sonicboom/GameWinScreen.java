@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
@@ -27,7 +29,7 @@ import aurelienribon.tweenengine.TweenManager;
 
 public class GameWinScreen implements Screen {
 
-	final GameScreen game;
+	final SonicBoom game;
 
 	OrthographicCamera camera;
 
@@ -63,11 +65,13 @@ public class GameWinScreen implements Screen {
 	private Label time4;
 	private Label time5;
 
-	public GameWinScreen(final GameScreen game) {
+	private boolean newHighScore;
+
+	public GameWinScreen(final SonicBoom game) {
 		this.game = game;
 
 		stage = new Stage();
-		//stage.setDebugAll(true);
+		// stage.setDebugAll(true);
 
 		skin = game.manager.get("UIskin/uiskin.json", Skin.class);
 
@@ -108,7 +112,7 @@ public class GameWinScreen implements Screen {
 
 									@Override
 									public void onEvent(int type, BaseTween<?> source) {
-										game.game.setScreen(new HomeScreen(game.game));
+										game.setScreen(new HomeScreen(game));
 									}
 								}))
 						.end().start(tweenManager);
@@ -124,34 +128,46 @@ public class GameWinScreen implements Screen {
 			public void clicked(InputEvent event, float x, float y) {
 				game.manager.get("Sound/ChangeMap.wav", Sound.class).play();
 
+				GameScorer.addNewHighScore(txfPlayerName.getText());
+
+				GameScorer.save();
+
+				updateLabel();
+
+				txfPlayerName.setVisible(false);
+				buttonSubmit.setVisible(false);
+				buttonHome.setVisible(true);
+
 				System.out.println(txfPlayerName.getText());
 			}
 		});
 
 		// Player Name input text field
 		txfPlayerName = new TextField("", skin);
-		txfPlayerName.setMaxLength(15);
+		txfPlayerName.setMessageText("enter your name.");
+		txfPlayerName.setAlignment(Align.center);
+		txfPlayerName.setMaxLength(5);
 
 		// top score label
 		Label highScoreLabel = new Label("High Scores", new Label.LabelStyle(font, Color.WHITE));
 
-		name1 = new Label(String.format("1  %-15s   ", GameScorer.name[0]), new Label.LabelStyle(font, Color.WHITE));
-		name2 = new Label(String.format("2  %-15s   ", GameScorer.name[1]), new Label.LabelStyle(font, Color.WHITE));
-		name3 = new Label(String.format("3  %-15s   ", GameScorer.name[2]), new Label.LabelStyle(font, Color.WHITE));
-		name4 = new Label(String.format("4  %-15s   ", GameScorer.name[3]), new Label.LabelStyle(font, Color.WHITE));
-		name5 = new Label(String.format("5  %-15s   ", GameScorer.name[4]), new Label.LabelStyle(font, Color.WHITE));
+		name1 = new Label("1", new Label.LabelStyle(font, Color.WHITE));
+		name2 = new Label("2", new Label.LabelStyle(font, Color.WHITE));
+		name3 = new Label("3", new Label.LabelStyle(font, Color.WHITE));
+		name4 = new Label("4", new Label.LabelStyle(font, Color.WHITE));
+		name5 = new Label("5", new Label.LabelStyle(font, Color.WHITE));
 
-		score1 = new Label(String.format("%d   ", GameScorer.highScores[0]), new Label.LabelStyle(font, Color.WHITE));
-		score2 = new Label(String.format("%d   ", GameScorer.highScores[1]), new Label.LabelStyle(font, Color.WHITE));
-		score3 = new Label(String.format("%d   ", GameScorer.highScores[2]), new Label.LabelStyle(font, Color.WHITE));
-		score4 = new Label(String.format("%d   ", GameScorer.highScores[3]), new Label.LabelStyle(font, Color.WHITE));
-		score5 = new Label(String.format("%d   ", GameScorer.highScores[4]), new Label.LabelStyle(font, Color.WHITE));
+		score1 = new Label("", new Label.LabelStyle(font, Color.WHITE));
+		score2 = new Label("", new Label.LabelStyle(font, Color.WHITE));
+		score3 = new Label("", new Label.LabelStyle(font, Color.WHITE));
+		score4 = new Label("", new Label.LabelStyle(font, Color.WHITE));
+		score5 = new Label("", new Label.LabelStyle(font, Color.WHITE));
 
-		time1 = new Label(String.format("%d", GameScorer.time[0]), new Label.LabelStyle(font, Color.WHITE));
-		time2 = new Label(String.format("%d", GameScorer.time[1]), new Label.LabelStyle(font, Color.WHITE));
-		time3 = new Label(String.format("%d", GameScorer.time[2]), new Label.LabelStyle(font, Color.WHITE));
-		time4 = new Label(String.format("%d", GameScorer.time[3]), new Label.LabelStyle(font, Color.WHITE));
-		time5 = new Label(String.format("%d", GameScorer.time[4]), new Label.LabelStyle(font, Color.WHITE));
+		time1 = new Label("", new Label.LabelStyle(font, Color.WHITE));
+		time2 = new Label("", new Label.LabelStyle(font, Color.WHITE));
+		time3 = new Label("", new Label.LabelStyle(font, Color.WHITE));
+		time4 = new Label("", new Label.LabelStyle(font, Color.WHITE));
+		time5 = new Label("", new Label.LabelStyle(font, Color.WHITE));
 
 		// putting stuff together
 		// win pic
@@ -160,24 +176,25 @@ public class GameWinScreen implements Screen {
 		// score table
 		highScoreTable.add().width(150).padBottom(10);
 		highScoreTable.add(highScoreLabel).padBottom(10);
-		highScoreTable.add().width(150).padBottom(10).row();;
-		
+		highScoreTable.add().width(150).padBottom(10).row();
+		;
+
 		highScoreTable.add(name1).width(150);
 		highScoreTable.add(score1).width(150);
 		highScoreTable.add(time1).width(150).row();
-		
+
 		highScoreTable.add(name2).width(150);
 		highScoreTable.add(score2).width(150);
 		highScoreTable.add(time2).width(150).row();
-		
+
 		highScoreTable.add(name3).width(150);
 		highScoreTable.add(score3).width(150);
 		highScoreTable.add(time3).width(150).row();
-		
+
 		highScoreTable.add(name4).width(150);
 		highScoreTable.add(score4).width(150);
 		highScoreTable.add(time4).width(150).row();
-		
+
 		highScoreTable.add(name5).width(150);
 		highScoreTable.add(score5).width(150);
 		highScoreTable.add(time5).width(150).row();
@@ -211,20 +228,79 @@ public class GameWinScreen implements Screen {
 
 		tweenManager.update(Gdx.graphics.getDeltaTime());
 
-		// txfPlayerName.setVisible(false);
-		// buttonSubmit.setVisible(false);
-		// buttonHome.setVisible(false);
+		updateLabel();
+
+		newHighScore = GameScorer.isNewHighScore();
+
+		if (newHighScore) {
+			txfPlayerName.setVisible(true);
+			buttonSubmit.setVisible(true);
+			buttonHome.setVisible(false);
+		} else {
+			txfPlayerName.setVisible(false);
+			buttonSubmit.setVisible(false);
+			buttonHome.setVisible(true);
+		}
 
 	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.input.setInputProcessor(stage);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		stage.act(delta);
 		stage.draw();
 
 		tweenManager.update(delta);
+	}
+
+	private void updateLabel() {
+		name1.setText(String.format("1  %-15s", nameFormat(GameScorer.profiles.get(0).getName())));
+		name2.setText(String.format("2  %-15s", nameFormat(GameScorer.profiles.get(1).getName())));
+		name3.setText(String.format("3  %-15s", nameFormat(GameScorer.profiles.get(2).getName())));
+		name4.setText(String.format("4  %-15s", nameFormat(GameScorer.profiles.get(3).getName())));
+		name5.setText(String.format("5  %-15s", nameFormat(GameScorer.profiles.get(4).getName())));
+
+		score1.setText(scoreFormat(GameScorer.profiles.get(0).getScore()));
+		score2.setText(scoreFormat(GameScorer.profiles.get(1).getScore()));
+		score3.setText(scoreFormat(GameScorer.profiles.get(2).getScore()));
+		score4.setText(scoreFormat(GameScorer.profiles.get(3).getScore()));
+		score5.setText(scoreFormat(GameScorer.profiles.get(4).getScore()));
+
+		time1.setText(timeFormat(GameScorer.profiles.get(0).getTime()));
+		time2.setText(timeFormat(GameScorer.profiles.get(1).getTime()));
+		time3.setText(timeFormat(GameScorer.profiles.get(2).getTime()));
+		time4.setText(timeFormat(GameScorer.profiles.get(3).getTime()));
+		time5.setText(timeFormat(GameScorer.profiles.get(4).getTime()));
+	}
+
+	private String nameFormat(String name) {
+		if (name.equals("")) {
+			return "------";
+		}
+		return name;
+	}
+
+	private String scoreFormat(int score) {
+		if (score == 0) {
+			return "------";
+		}
+		return score + "";
+	}
+
+	private String timeFormat(long time) {
+		if (time == 0) {
+			return "--:--:--";
+		}
+
+		int millis = (int) (time % 1000) / 10;
+		int seconds = (int) (time / 1000);
+		int minutes = seconds / 60;
+		seconds -= minutes * 60;
+
+		return String.format("%02d", minutes) + ':' + String.format("%02d", seconds) + ':'
+				+ String.format("%02d", millis);
 	}
 
 	@Override
@@ -235,7 +311,7 @@ public class GameWinScreen implements Screen {
 
 	@Override
 	public void show() {
-
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override

@@ -68,6 +68,7 @@ public class LoadingScreen implements Screen {
 		stage.addActor(loadingFrame);
 
 		// Add everything to be loaded, for instance:
+		GameScorer.load();
 		loadAssets();
 	}
 
@@ -146,7 +147,7 @@ public class LoadingScreen implements Screen {
 		// Tutorial Screen
 		game.manager.load("TutorialScreen/Tutorialbg.jpg", Texture.class);
 		game.manager.load("TutorialScreen/button.pack", TextureAtlas.class);
-		
+
 		// Game Over Screen
 		game.manager.load("OverScreen/gameover.png", Texture.class);
 

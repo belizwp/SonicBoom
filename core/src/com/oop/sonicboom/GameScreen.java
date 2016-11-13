@@ -48,9 +48,8 @@ public class GameScreen implements Screen {
 
 	// screen that relate to GameScreen
 	PauseMenuScreen pauseMenu;
-	GameWinScreen winScreen;
 
-	// time to over screen
+	// time to change screen
 	private float overtime;
 
 	// batch for draw
@@ -109,7 +108,6 @@ public class GameScreen implements Screen {
 		this.manager = game.manager;
 
 		pauseMenu = new PauseMenuScreen(this);
-		winScreen = new GameWinScreen(this);
 
 		// create hud
 		hud = new Hud(this);
@@ -215,7 +213,12 @@ public class GameScreen implements Screen {
 
 		if (overtime > 2) {
 			dispose();
-			game.setScreen(new GameOverScreen(game));
+			if (state == GAME_OVER) {
+				game.setScreen(new GameOverScreen(game));
+			} else if (state == GAME_WIN) {
+				game.setScreen(new GameWinScreen(game));
+			}
+
 		}
 	}
 
@@ -223,7 +226,6 @@ public class GameScreen implements Screen {
 	public void resize(int width, int height) {
 		gamePort.update(width, height);
 		pauseMenu.resize(width, height);
-		winScreen.resize(width, height);
 	}
 
 	@Override
@@ -265,7 +267,6 @@ public class GameScreen implements Screen {
 		hud.dispose();
 		enemies.dispose();
 		pauseMenu.dispose();
-		winScreen.dispose();
 
 	}
 
@@ -396,6 +397,8 @@ public class GameScreen implements Screen {
 
 	private void updateGameWin(float delta) {
 		updateRunning(delta);
+
+		overtime += delta;
 	}
 
 	private void draw(float delta) {
@@ -465,16 +468,12 @@ public class GameScreen implements Screen {
 	}
 
 	private void presentGameOver(float delta) {
-		// overlay running
 		presentRunning(delta);
-		// render game over screen
+
 	}
 
 	private void presentGameWin(float delta) {
-		// overlay running
 		presentRunning(delta);
-		// render game win screen
-		winScreen.render(delta);
 
 	}
 
