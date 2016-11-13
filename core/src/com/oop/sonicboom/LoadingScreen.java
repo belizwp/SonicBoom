@@ -184,6 +184,7 @@ public class LoadingScreen implements Screen {
 		game.manager.load("Sound/Run out of air.wav", Sound.class);
 		game.manager.load("Sound/Spin.wav", Sound.class);
 		game.manager.load("Sound/wrong action.wav", Sound.class);
+		
 
 		// font
 		FileHandleResolver resolver = new InternalFileHandleResolver();

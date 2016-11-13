@@ -26,13 +26,6 @@ public class EnemyFly extends Enemy {
 		super(game, object);
 
 		defineAnimation();
-
-		body.setType(BodyType.DynamicBody);
-
-		Filter filter = new Filter();
-		filter.categoryBits = SonicBoom.BOSS_BIT;
-		fixture.setFilterData(filter);
-		fixture.setSensor(false);
 		
 		limitDistance = 5;
 	}
