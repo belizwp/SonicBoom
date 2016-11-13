@@ -146,6 +146,9 @@ public class LoadingScreen implements Screen {
 		// Tutorial Screen
 		game.manager.load("TutorialScreen/Tutorialbg.jpg", Texture.class);
 		game.manager.load("TutorialScreen/button.pack", TextureAtlas.class);
+		
+		// Game Over Screen
+		game.manager.load("OverScreen/gameover.png", Texture.class);
 
 		// Win Screen
 		game.manager.load("WinScreen/youWin.png", Texture.class);

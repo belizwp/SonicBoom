@@ -55,7 +55,7 @@ public class PauseMenuScreen implements Screen {
 			}
 		});
 
-		TextButton btnQuit = new TextButton("QUIT", skin);
+		TextButton btnQuit = new TextButton("HOME", skin);
 		btnQuit.setWidth(200);
 		btnQuit.setHeight(50);
 		btnQuit.setPosition(800 / 2 - 200 / 2, 256);

@@ -50,6 +50,9 @@ public class GameScreen implements Screen {
 	PauseMenuScreen pauseMenu;
 	GameWinScreen winScreen;
 
+	// time to over screen
+	private float overtime;
+
 	// batch for draw
 	Batch batch;
 
@@ -209,12 +212,18 @@ public class GameScreen implements Screen {
 
 			changeMap(currentMap + 1);
 		}
+
+		if (overtime > 2) {
+			dispose();
+			game.setScreen(new GameOverScreen(game));
+		}
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		gamePort.update(width, height);
 		pauseMenu.resize(width, height);
+		winScreen.resize(width, height);
 	}
 
 	@Override
@@ -263,8 +272,10 @@ public class GameScreen implements Screen {
 	private void handleInput(float delta) {
 
 		// toggle debug mode
-		if (Gdx.input.isKeyJustPressed(Keys.SLASH))
-			toggleDebug();
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT))
+			if (Gdx.input.isKeyJustPressed(Keys.B)) {
+				toggleDebug();
+			}
 
 		// pause / resume
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
@@ -275,38 +286,40 @@ public class GameScreen implements Screen {
 			}
 		}
 
-		// Test ring spawning for now
-		if (Gdx.input.isKeyPressed(Keys.C)) {
-			gameObjects.spawnRing(player.body.getWorldCenter().add(-8 / SonicBoom.PPM, 50 / SonicBoom.PPM), 0, 3);
-		}
+		if (debug) {
+			// Test ring spawning for now
+			if (Gdx.input.isKeyPressed(Keys.C)) {
+				gameObjects.spawnRing(player.body.getWorldCenter().add(-8 / SonicBoom.PPM, 50 / SonicBoom.PPM), 0, 3);
+			}
 
-		// Test kill player
-		if (Gdx.input.isKeyJustPressed(Keys.K)) {
-			forceGameOver();
-		}
+			// Test kill player
+			if (Gdx.input.isKeyJustPressed(Keys.K)) {
+				forceGameOver();
+			}
 
-		// Test win player
-		if (Gdx.input.isKeyJustPressed(Keys.W)) {
-			forceGameWin();
-		}
+			// Test win player
+			if (Gdx.input.isKeyJustPressed(Keys.W)) {
+				forceGameWin();
+			}
 
-		// Test reset score
-		if (Gdx.input.isKeyJustPressed(Keys.R)) {
-			GameScorer.reset();
-		}
+			// Test reset score
+			if (Gdx.input.isKeyJustPressed(Keys.R)) {
+				GameScorer.reset();
+			}
 
-		// Test change map
-		if (Gdx.input.isKeyJustPressed(Keys.NUM_1)) {
-			changeMap(1);
-		}
-		if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
-			changeMap(2);
-		}
-		if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
-			changeMap(3);
-		}
-		if (Gdx.input.isKeyJustPressed(Keys.NUM_0)) {
-			changeMap(0);
+			// Test change map
+			if (Gdx.input.isKeyJustPressed(Keys.NUM_1)) {
+				changeMap(1);
+			}
+			if (Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
+				changeMap(2);
+			}
+			if (Gdx.input.isKeyJustPressed(Keys.NUM_3)) {
+				changeMap(3);
+			}
+			if (Gdx.input.isKeyJustPressed(Keys.NUM_0)) {
+				changeMap(0);
+			}
 		}
 	}
 
@@ -377,6 +390,8 @@ public class GameScreen implements Screen {
 		if (music.isPlaying()) {
 			music.stop();
 		}
+
+		overtime += delta;
 	}
 
 	private void updateGameWin(float delta) {
@@ -410,7 +425,7 @@ public class GameScreen implements Screen {
 		batch.draw(bg, 0, 0, SonicBoom.V_WIDTH, SonicBoom.V_HEIGHT);
 		batch.end();
 
-		// darw back layer of map
+		// Draw back layer of map
 		renderer.render(backLayer);
 
 		// draw player, enemies and game object
@@ -421,7 +436,7 @@ public class GameScreen implements Screen {
 		player.draw(game.batch);
 		batch.end();
 
-		// draw foregraound of map
+		// draw foreground of map
 		renderer.render(foreLayer);
 
 		// debug
