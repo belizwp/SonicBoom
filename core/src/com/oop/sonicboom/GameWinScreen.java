@@ -2,6 +2,7 @@ package com.oop.sonicboom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -143,7 +144,7 @@ public class GameWinScreen implements Screen {
 			public void clicked(InputEvent event, float x, float y) {
 				game.manager.get("Sound/ChangeMap.wav", Sound.class).play();
 
-				if (!txfPlayerName.getText().contains(" ")) {
+				if (!txfPlayerName.getText().contains(" ") && !txfPlayerName.getText().equals("")) {
 					GameScorer.addNewHighScore(txfPlayerName.getText());
 
 					GameScorer.save();
@@ -347,11 +348,13 @@ public class GameWinScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		game.manager.get("Sound/Itsshowtime.mp3", Music.class).play();
 
 	}
 
 	@Override
 	public void hide() {
+		game.manager.get("Sound/Itsshowtime.mp3", Music.class).stop();
 		dispose();
 	}
 

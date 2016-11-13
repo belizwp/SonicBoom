@@ -140,7 +140,7 @@ public class GameScreen implements Screen {
 			map = maploader.load("Maps/final_map.tmx");
 			hud.setMapName("Boss");
 			bg = game.manager.get("Maps/bg_sky.png", Texture.class);
-			music = game.manager.get("Sound/Background_Bossfight.mp3", Music.class);
+			music = game.manager.get("Sound/SpearOfJustice.mp3", Music.class);
 		} else {
 			map = maploader.load("Maps/testMap.tmx");
 			hud.setMapName("TEST ROOM");
@@ -396,6 +396,10 @@ public class GameScreen implements Screen {
 
 	private void updateGameWin(float delta) {
 		updateRunning(delta);
+
+		if (music.isPlaying()) {
+			music.stop();
+		}
 
 		overtime += delta;
 	}

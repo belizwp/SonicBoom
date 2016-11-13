@@ -167,6 +167,8 @@ public class LoadingScreen implements Screen {
 		game.manager.load("Sound/Backgroundgame_2.mp3", Music.class);
 		game.manager.load("Sound/Endgame.mp3", Music.class);
 		game.manager.load("Sound/Introduction.mp3", Music.class);
+		game.manager.load("Sound/Itsshowtime.mp3", Music.class);
+		game.manager.load("Sound/SpearOfJustice.mp3", Music.class);
 
 		// sound
 		game.manager.load("Sound/Bosslaugh.wav", Sound.class);
@@ -184,7 +186,6 @@ public class LoadingScreen implements Screen {
 		game.manager.load("Sound/Run out of air.wav", Sound.class);
 		game.manager.load("Sound/Spin.wav", Sound.class);
 		game.manager.load("Sound/wrong action.wav", Sound.class);
-		
 
 		// font
 		FileHandleResolver resolver = new InternalFileHandleResolver();
