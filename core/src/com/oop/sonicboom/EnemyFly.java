@@ -1,5 +1,6 @@
 package com.oop.sonicboom;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -19,14 +20,14 @@ public class EnemyFly extends Enemy {
 	private float distance;
 	private float limitDistance;
 	private boolean go, dead;
-	
+
 	private float deadTime = 0.35f;
 
 	public EnemyFly(GameScreen game, MapObject object) {
 		super(game, object);
 
 		defineAnimation();
-		
+
 		limitDistance = 5;
 	}
 
@@ -36,7 +37,6 @@ public class EnemyFly extends Enemy {
 		sprite2 = new Texture("Sprites/enemyfly3.png");
 		sprite3 = new Texture("Sprites/enemyfly4.png");
 
-		
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		frames.add(new TextureRegion(sprite, 0, 0, 90, 140));
 		frames.add(new TextureRegion(sprite1, 0, 0, 90, 140));
@@ -44,10 +44,9 @@ public class EnemyFly extends Enemy {
 
 		animation = new Animation(0.2f, frames);
 		frames.clear();
-		
+
 		frames.add(new TextureRegion(sprite3, 0, 0, 90, 140));
-		
-		
+
 		deadAnimation = new Animation(0.2f, frames);
 		frames.clear();
 	}
@@ -99,6 +98,7 @@ public class EnemyFly extends Enemy {
 
 			if (deadTime < 0) {
 				destroy();
+
 			}
 		}
 		stateTime += delta;
@@ -112,6 +112,8 @@ public class EnemyFly extends Enemy {
 		// do some thing
 		if (game.player.spinning || game.player.spinJump) {
 			dead = true;
+
+			game.manager.get("Sound/Fry_dead.wav", Sound.class).play();
 		} else {
 			pushBack(game.player, 0.125f, 0.2f);
 			game.player.hurt(1);

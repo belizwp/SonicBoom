@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="300" height="15" tilewidth="96" tileheight="96" nextobjectid="74">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="300" height="15" tilewidth="96" tileheight="96" nextobjectid="76">
  <tileset firstgid="1" name="Hot_Crater_Act_2" tilewidth="96" tileheight="96" tilecount="280" columns="20">
   <image source="Hot_Crater_Act_2.png" width="1920" height="1344"/>
  </tileset>
@@ -65,7 +65,7 @@
   </object>
  </objectgroup>
  <objectgroup name="Player">
-  <object id="3" name="player" type="object" x="44.6667" y="634.333" width="26" height="26">
+  <object id="3" name="player" type="object" x="533.667" y="305.333" width="26" height="26">
    <properties>
     <property name="angularDamping" value="90"/>
     <property name="bodyType" value="DynamicBody"/>
@@ -76,12 +76,12 @@
   </object>
  </objectgroup>
  <objectgroup name="Enemies">
-  <object id="5" name="sampleEnemy" gid="379" x="695.583" y="651.458" width="41" height="40"/>
-  <object id="6" name="enemyFly" gid="380" x="575.417" y="662.375" width="44" height="79.5"/>
+  <object id="5" name="sampleEnemy" gid="379" x="872.583" y="597.458" width="41" height="40"/>
+  <object id="6" name="enemyFly" gid="380" x="714.417" y="651.375" width="44" height="79.5"/>
   <object id="7" name="sampleEnemy" gid="379" x="1113.5" y="656" width="68.3333" height="61.3333"/>
   <object id="8" name="sampleEnemy" gid="379" x="1812.17" y="660.667" width="41" height="40"/>
   <object id="9" name="sampleEnemy" gid="379" x="2371.5" y="658.667" width="41" height="40"/>
-  <object id="10" name="sampleEnemy" gid="379" x="3112.83" y="662.667" width="59.6667" height="58"/>
+  <object id="10" name="sampleEnemy" gid="379" x="3352.83" y="656.667" width="59.6667" height="58"/>
   <object id="11" name="sampleEnemy" gid="379" x="3919.5" y="657.333" width="66.3333" height="71.3333"/>
   <object id="12" name="sampleEnemy" gid="379" x="4974.17" y="643.333" width="49.6667" height="50"/>
   <object id="13" name="sampleEnemy" gid="379" x="5599.5" y="645" width="81.5" height="81"/>
@@ -115,7 +115,7 @@
   <object id="41" name="sampleEnemy" gid="379" x="27907.5" y="596" width="41" height="40"/>
   <object id="42" name="enemyFly" gid="380" x="1468.18" y="650.735" width="44" height="79.5"/>
   <object id="43" name="enemyFly" gid="380" x="2249.33" y="656.614" width="62" height="112.167"/>
-  <object id="44" name="enemyFly" gid="380" x="2937.27" y="650.735" width="64.6667" height="108.167"/>
+  <object id="44" name="enemyFly" gid="380" x="3177.27" y="644.735" width="64.6667" height="108.167"/>
   <object id="45" name="enemyFly" gid="380" x="3640.73" y="669.341" width="44" height="79.5"/>
   <object id="46" name="enemyFly" gid="380" x="4763.27" y="668.614" width="44" height="79.5"/>
   <object id="47" name="enemyFly" gid="380" x="4345.21" y="650.311" width="71.3333" height="124.167"/>
@@ -144,6 +144,8 @@
   <object id="70" name="enemyFly" gid="380" x="27465.9" y="617.826" width="44" height="79.5"/>
   <object id="71" name="enemyFly" gid="380" x="28208.3" y="614.795" width="44" height="79.5"/>
   <object id="72" name="enemyFly" gid="380" x="28756.8" y="593.583" width="44" height="79.5"/>
-  <object id="73" name="bossEnemy" gid="381" x="725.333" y="681.333" width="368" height="241"/>
+  <object id="73" name="bossEnemy" gid="2147484029" x="55.333" y="659.333" width="368" height="241"/>
+  <object id="74" name="enemyFly" gid="380" x="2720.41" y="631.917" width="62" height="112.167"/>
+  <object id="75" name="sampleEnemy" gid="379" x="2842.59" y="633.97" width="41" height="40"/>
  </objectgroup>
 </map>

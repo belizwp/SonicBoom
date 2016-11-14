@@ -1,5 +1,6 @@
 package com.oop.sonicboom;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,18 +12,18 @@ import com.badlogic.gdx.utils.Array;
 
 public class BossEnemies extends Enemy {
 
-	private static Texture sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, 
-	sprite7, sprite8, sprite9, sprite10, sprite11, sprite12;
+	private static Texture sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sprite8, sprite9, sprite10,
+			sprite11, sprite12;
 	private static Animation animation;
 	private static Animation angryAnimation;
 	private static Animation deadAnimation;
 	private float stateTime;
-	private int hp=10;
-	
+	private int hp = 10;
+
 	private float distance;
 	private float limitDistance;
 	private boolean go;
-	
+
 	private float deadTime = 1f;
 
 	public BossEnemies(GameScreen game, MapObject object) {
@@ -34,9 +35,10 @@ public class BossEnemies extends Enemy {
 
 		Filter filter = new Filter();
 		filter.categoryBits = SonicBoom.BOSS_BIT;
+		filter.maskBits = SonicBoom.GROUND_BIT | SonicBoom.PLAYER_BIT;
 		fixture.setFilterData(filter);
 		fixture.setSensor(false);
-		
+
 		limitDistance = 15;
 	}
 
@@ -53,7 +55,7 @@ public class BossEnemies extends Enemy {
 		sprite10 = new Texture("Sprites/sheep8.png");
 		sprite11 = new Texture("Sprites/sheep9.png");
 		sprite12 = new Texture("Sprites/sheep10.png");
-		
+
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 
 		frames.add(new TextureRegion(sprite1, 0, 0, 96, 65));
@@ -63,7 +65,7 @@ public class BossEnemies extends Enemy {
 		frames.add(new TextureRegion(sprite5, 0, 0, 96, 65));
 		animation = new Animation(0.1f, frames);
 		frames.clear();
-		
+
 		frames.add(new TextureRegion(sprite12, 0, 0, 96, 65));
 		frames.add(new TextureRegion(sprite11, 0, 0, 96, 65));
 		frames.add(new TextureRegion(sprite7, 0, 0, 96, 65));
@@ -72,7 +74,7 @@ public class BossEnemies extends Enemy {
 		frames.add(new TextureRegion(sprite10, 0, 0, 96, 65));
 		angryAnimation = new Animation(0.1f, frames);
 		frames.clear();
-		
+
 		frames.add(new TextureRegion(sprite6, 0, 0, 96, 65));
 		deadAnimation = new Animation(0.2f, frames);
 		frames.clear();
@@ -96,9 +98,9 @@ public class BossEnemies extends Enemy {
 	}
 
 	private void flip() {
-		if (go && !textureRegion.isFlipX()) {
+		if (!go && !textureRegion.isFlipX()) {
 			textureRegion.flip(true, false);
-		} else if (!go && textureRegion.isFlipX()) {
+		} else if (go && textureRegion.isFlipX()) {
 			textureRegion.flip(true, false);
 		}
 	}
@@ -112,24 +114,27 @@ public class BossEnemies extends Enemy {
 	@Override
 	public void update(float delta) {
 		super.update(delta);
-		
+
 		// set current picture of animation
 		if (hp != 0) {
-			if (hp==10){
+			if (hp == 10) {
 				setRegion(animation.getKeyFrame(stateTime, true));
-				
+
 				// make it moving around
-				moveAround(delta);
-			} else if (hp == 9){
+				// moveAround(delta);
+			} else if (hp == 9) {
 				setRegion(angryAnimation.getKeyFrame(stateTime, true));
 
 				// make it moving around
-				//moveAround(delta);
+				// moveAround(delta);
+				moveToPlayer(0.8f);
 			} else {
 				setRegion(animation.getKeyFrame(stateTime, true));
-				
+
 				// make it moving around
-				moveAround(delta);
+				// moveAround(delta);
+				// chase player
+				moveToPlayer(0.8f);
 			}
 		} else {
 			setRegion(deadAnimation.getKeyFrame(stateTime, true));
@@ -137,6 +142,7 @@ public class BossEnemies extends Enemy {
 
 			if (deadTime < 0) {
 				destroy();
+				game.manager.get("Sound/Boss_dead.wav", Sound.class).play();
 				GameScreen.forceGameWin();
 			}
 		}
@@ -146,21 +152,24 @@ public class BossEnemies extends Enemy {
 		// flip picture
 		flip();
 	}
-	
+
 	@Override
 	public void hit() {
 		// do some thing
 		if (game.player.spinning || game.player.spinJump) {
-				hp--;
+			hp--;
+
+			game.manager.get("Sound/Boss_hit.wav", Sound.class).play();
 		} else {
 			pushBack(game.player, 0.125f, 0.2f);
 			game.player.hurt(1);
 			game.player.loseRing(GameScorer.clearScore());
+			game.manager.get("Sound/Death.wav", Sound.class).play();
 		}
 	}
-	
+
 	private void moveToPlayer(float vX) {
-		float playerX = game.player.body.getWorldCenter().x;
+		float playerX = game.player.body.getWorldCenter().x + 164;
 		float bossX = body.getWorldCenter().x;
 
 		float bossVelocityX = body.getLinearVelocity().x;
@@ -171,7 +180,7 @@ public class BossEnemies extends Enemy {
 			body.applyLinearImpulse(new Vector2(-vX, 0), body.getWorldCenter(), true);
 		}
 		// player is right side of boss
-		if (playerX > bossX && bossVelocityX > limitVelocity) {
+		if (playerX > bossX && bossVelocityX < limitVelocity) {
 			body.applyLinearImpulse(new Vector2(vX, 0), body.getWorldCenter(), true);
 		}
 	}
@@ -182,7 +191,7 @@ public class BossEnemies extends Enemy {
 		player.body.setLinearVelocity(0, 0);
 		player.body.applyLinearImpulse(forceBack, player.body.getWorldCenter(), true);
 	}
-	
+
 	@Override
 	public void dispose() {
 		sprite1.dispose();

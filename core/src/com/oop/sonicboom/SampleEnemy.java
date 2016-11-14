@@ -1,5 +1,6 @@
 package com.oop.sonicboom;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -20,7 +21,7 @@ public class SampleEnemy extends Enemy {
 	private float distance;
 	private float limitDistance;
 	private boolean go, dead;
-	
+
 	private float deadTime = 0.35f;
 
 	public SampleEnemy(GameScreen game, MapObject object) {
@@ -35,7 +36,7 @@ public class SampleEnemy extends Enemy {
 		sprite = game.manager.get("Sprites/sampleEnemySprite.png", Texture.class);
 		sprite.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		sprite1 = new Texture("Sprites/crash_samp.png");
-		
+
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		frames.add(new TextureRegion(sprite, 0, 0, 32, 32));
 		frames.add(new TextureRegion(sprite, 32, 0, 32, 32));
@@ -44,7 +45,7 @@ public class SampleEnemy extends Enemy {
 
 		animation = new Animation(0.2f, frames);
 		frames.clear();
-		
+
 		frames.add(new TextureRegion(sprite1, 0, 0, 32, 32));
 
 		deadAnimation = new Animation(0.2f, frames);
@@ -86,32 +87,34 @@ public class SampleEnemy extends Enemy {
 		super.update(delta);
 
 		// set current picture of animation
-				if (!dead) {
-					setRegion(animation.getKeyFrame(stateTime, true));
+		if (!dead) {
+			setRegion(animation.getKeyFrame(stateTime, true));
 
-					// make it moving around
-					moveAround(delta);
+			// make it moving around
+			moveAround(delta);
 
-				} else {
-					setRegion(deadAnimation.getKeyFrame(stateTime, true));
-					deadTime -= delta;
+		} else {
+			setRegion(deadAnimation.getKeyFrame(stateTime, true));
+			deadTime -= delta;
 
-					if (deadTime < 0) {
-						destroy();
-					}
-				}
-
-				stateTime += delta;
-
-				// flip picture
-				flip();
+			if (deadTime < 0) {
+				destroy();
 			}
+		}
+
+		stateTime += delta;
+
+		// flip picture
+		flip();
+	}
 
 	@Override
 	public void hit() {
 		// do some thing
 		if (game.player.spinning || game.player.spinJump) {
 			dead = true;
+
+			game.manager.get("Sound/fish_dead.wav", Sound.class).play();
 		} else {
 			pushBack(game.player, 0.125f, 0.2f);
 			game.player.hurt(1);

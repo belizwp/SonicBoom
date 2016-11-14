@@ -187,6 +187,13 @@ public class LoadingScreen implements Screen {
 		game.manager.load("Sound/Spin.wav", Sound.class);
 		game.manager.load("Sound/wrong action.wav", Sound.class);
 
+		// enemy death sound
+		game.manager.load("Sound/Boss_dead.wav", Sound.class);
+		game.manager.load("Sound/Boss_hit.wav", Sound.class);
+		game.manager.load("Sound/fish_dead.wav", Sound.class);
+		game.manager.load("Sound/Fry_dead.wav", Sound.class);
+		game.manager.load("Sound/Sheep_dead.wav", Sound.class);
+
 		// font
 		FileHandleResolver resolver = new InternalFileHandleResolver();
 		game.manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));

@@ -28,7 +28,7 @@ public class SheepEnemy extends Enemy {
 
 		defineAnimation();
 
-		limitDistance = 5 ;
+		limitDistance = 5;
 	}
 
 	private void defineAnimation() {
@@ -117,6 +117,8 @@ public class SheepEnemy extends Enemy {
 		// do some thing
 		if (game.player.spinning || game.player.spinJump) {
 			dead = true;
+
+			game.manager.get("Sound/Sheep_dead.wav", Sound.class).play();
 		} else {
 			pushBack(game.player, 0.125f, 0.2f);
 			game.player.hurt(1);
