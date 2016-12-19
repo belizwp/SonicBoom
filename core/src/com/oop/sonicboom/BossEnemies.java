@@ -195,5 +195,16 @@ public class BossEnemies extends Enemy {
 	@Override
 	public void dispose() {
 		sprite1.dispose();
+		sprite2.dispose();
+		sprite3.dispose();
+		sprite4.dispose();
+		sprite5.dispose();
+		sprite6.dispose();
+		sprite7.dispose();
+		sprite8.dispose();
+		sprite9.dispose();
+		sprite10.dispose();
+		sprite11.dispose();
+		sprite12.dispose();
 	}
 }

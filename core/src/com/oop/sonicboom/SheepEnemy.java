@@ -136,5 +136,10 @@ public class SheepEnemy extends Enemy {
 	@Override
 	public void dispose() {
 		sprite1.dispose();
+		sprite2.dispose();
+		sprite3.dispose();
+		sprite4.dispose();
+		sprite5.dispose();
+		sprite6.dispose();
 	}
 }

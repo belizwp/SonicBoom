@@ -114,7 +114,7 @@ public class SampleEnemy extends Enemy {
 		if (game.player.spinning || game.player.spinJump) {
 			dead = true;
 
-			game.manager.get("Sound/fish_dead.wav", Sound.class).play();
+			// game.manager.get("Sound/fish_dead.wav", Sound.class).play();
 		} else {
 			pushBack(game.player, 0.125f, 0.2f);
 			game.player.hurt(1);
@@ -131,6 +131,7 @@ public class SampleEnemy extends Enemy {
 
 	@Override
 	public void dispose() {
+		sprite1.dispose();
 	}
 
 }

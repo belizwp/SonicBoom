@@ -102,6 +102,8 @@ public class GameScreen implements Screen {
 
 	private Music music;
 
+	public OnScreenController onScreenController;
+
 	public GameScreen(SonicBoom game) {
 		this.game = game;
 		this.batch = game.batch;
@@ -189,12 +191,23 @@ public class GameScreen implements Screen {
 			GameScorer.start();
 		}
 
+		onScreenController = new OnScreenController(this);
+
 		state = GAME_RUNNING;
 	}
 
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(player.getInputProcessor());
+		switch (Gdx.app.getType()) {
+		case Android:
+			Gdx.input.setInputProcessor(onScreenController.getInputProcessor());
+			break;
+		case Desktop:
+		case WebGL:
+		default:
+			Gdx.input.setInputProcessor(player.getInputProcessor());
+			break;
+		}
 		music.play();
 
 	}
@@ -226,6 +239,7 @@ public class GameScreen implements Screen {
 	public void resize(int width, int height) {
 		gamePort.update(width, height);
 		pauseMenu.resize(width, height);
+		onScreenController.resize(width, height);
 	}
 
 	@Override
@@ -271,6 +285,12 @@ public class GameScreen implements Screen {
 	}
 
 	private void handleInput(float delta) {
+		if (Gdx.input.isTouched() && Gdx.input.getX() > Gdx.graphics.getWidth() / 2) {
+			gameCam.position.x += 10 * delta;
+		}
+		if (Gdx.input.isTouched() && Gdx.input.getX() < Gdx.graphics.getWidth() / 2) {
+			gameCam.position.x -= 10 * delta;
+		}
 
 		// pause / resume
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
@@ -360,8 +380,9 @@ public class GameScreen implements Screen {
 			if (gameCam.position.x - SonicBoom.V_WIDTH / 2 / SonicBoom.PPM < 0)
 				gameCam.position.x = SonicBoom.V_WIDTH / 2 / SonicBoom.PPM;
 
-			if (gameCam.position.x + SonicBoom.V_WIDTH / 2 / SonicBoom.PPM > mapPixelWidth / SonicBoom.PPM)
+			if (gameCam.position.x + SonicBoom.V_WIDTH / 2 / SonicBoom.PPM > mapPixelWidth / SonicBoom.PPM) {
 				gameCam.position.x = mapPixelWidth / SonicBoom.PPM - SonicBoom.V_WIDTH / 2 / SonicBoom.PPM;
+			}
 
 			if (gameCam.position.y - SonicBoom.V_HEIGHT / 2 / SonicBoom.PPM < 0)
 				gameCam.position.y = SonicBoom.V_HEIGHT / 2 / SonicBoom.PPM;
@@ -461,6 +482,16 @@ public class GameScreen implements Screen {
 		// draw HUD
 		if (state != GAME_WIN && state != GAME_OVER) {
 			hud.render();
+		}
+
+		switch (Gdx.app.getType()) {
+		case Android:
+			onScreenController.draw();
+			break;
+		case Desktop:
+		case WebGL:
+		default:
+			break;
 		}
 
 	}

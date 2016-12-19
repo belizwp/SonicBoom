@@ -1,14 +1,15 @@
 package com.oop.sonicboom;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SonicBoom extends Game {
 
 	// Virtual size for game
-	public static final int V_WIDTH = 600;
-	public static final int V_HEIGHT = 450;
+	public static int V_WIDTH;
+	public static int V_HEIGHT;
 
 	// Pixel per Meter
 	public static final float PPM = 100;
@@ -37,6 +38,21 @@ public class SonicBoom extends Game {
 	public void create() {
 		batch = new SpriteBatch();
 		manager = new AssetManager();
+
+		switch (Gdx.app.getType()) {
+		case Android:
+			// 16:10
+			V_WIDTH = 800;
+			V_HEIGHT = 500;
+			break;
+		case Desktop:
+		case WebGL:
+		default:
+			// 4:3
+			V_WIDTH = 800;
+			V_HEIGHT = 600;
+			break;
+		}
 
 		setScreen(new LoadingScreen(this));
 	}

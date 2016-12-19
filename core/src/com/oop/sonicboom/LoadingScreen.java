@@ -190,9 +190,15 @@ public class LoadingScreen implements Screen {
 		// enemy death sound
 		game.manager.load("Sound/Boss_dead.wav", Sound.class);
 		game.manager.load("Sound/Boss_hit.wav", Sound.class);
-		game.manager.load("Sound/fish_dead.wav", Sound.class);
+		// game.manager.load("Sound/fish_dead.wav", Sound.class);
 		game.manager.load("Sound/Fry_dead.wav", Sound.class);
 		game.manager.load("Sound/Sheep_dead.wav", Sound.class);
+
+		// controller
+		game.manager.load("Controller/left.png", Texture.class);
+		game.manager.load("Controller/right.png", Texture.class);
+		game.manager.load("Controller/up.png", Texture.class);
+		game.manager.load("Controller/down.png", Texture.class);
 
 		// font
 		FileHandleResolver resolver = new InternalFileHandleResolver();

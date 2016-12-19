@@ -133,5 +133,6 @@ public class EnemyFly extends Enemy {
 		sprite.dispose();
 		sprite1.dispose();
 		sprite2.dispose();
+		sprite3.dispose();
 	}
 }
